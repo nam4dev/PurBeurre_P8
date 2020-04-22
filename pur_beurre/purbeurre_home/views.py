@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 
+
 # index
 def home(request):
     """ Exemple de page non valide au niveau HTML pour que l'exemple soit concis """
