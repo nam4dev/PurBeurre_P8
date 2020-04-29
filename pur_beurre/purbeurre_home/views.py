@@ -9,6 +9,11 @@ def home(request):
     """ Exemple de page non valide au niveau HTML pour que l'exemple soit concis """
     return render(request, 'purbeurre_home/home.html')
 
+
+# legal notices
+def legal_notices(request):
+    return render(request, 'purbeurre_home/legal_notices.html')
+
 # # exemples
 # # page not found
 # def fonction_appelee(request, erreur):

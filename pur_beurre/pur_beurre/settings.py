@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'purbeurre_home',
+    'purbeurre_results',
+    'purbeurre_user',
+    'purbeurre_favorites'
 ]
 
 MIDDLEWARE = [
@@ -127,5 +130,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
 )

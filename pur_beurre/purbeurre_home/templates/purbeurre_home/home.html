@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
@@ -46,7 +46,7 @@
                             que j'avais l'habitude d'acheter par de bons produits du terroir Et souvent pour le même prix !"
                         </p>
                         <p class="text-white-50 mb-4">
-                            <strong>Colette Tatou :</strong>
+                            <strong>Rémy :</strong>
                             "Pour ma part je me rendais déjà dans bien des magasins car j'aime beaucoup me balader,
                             surtout dans les caves et les cuisines. Je connaissais par coeur le contenu des boutiques bio
                             (dont je raffole) ainsi que les ingrédients de tous les aliments vendus. Lorsque Colette m'a demandé
@@ -58,13 +58,13 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 text-center">
                         <div class="mt-5">
-                            <img class="about-picture" src="{% static 'img/colette-tatou-full.png' %}" alt="Colette">
+                            <img class="about-picture" src="{% static 'img/colette-tatou-full.png' %}" alt="Colette" height="50%" width="50%">
                             <h3 class="h4 mb-2">Colette</h3>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 text-center">
                         <div class="mt-5">
-                            <img class="about-picture" src="{% static 'img/ratatouille-portrait.jpg' %}" alt="Remy">
+                            <img class="about-picture" src="{% static 'img/ratatouille-portrait.jpg' %}" alt="Remy" height="150" width="50%">
                             <h3 class="h4 mb-2">Remy</h3>
                         </div>
                     </div>

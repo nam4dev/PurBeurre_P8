@@ -1996,7 +1996,7 @@ pre code {
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
-  background-color: #fff;
+  background-color: #efefef;
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
@@ -6067,7 +6067,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #f4623a !important;
+  background-color: #C45525 !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
@@ -6077,7 +6077,7 @@ button.bg-primary:focus {
 }
 
 .bg-secondary {
-  background-color: #6c757d !important;
+  background-color: #DE9440 !important;
 }
 
 a.bg-secondary:hover, a.bg-secondary:focus,
@@ -6127,7 +6127,7 @@ button.bg-danger:focus {
 }
 
 .bg-light {
-  background-color: #f8f9fa !important;
+  background-color: #E8A75D !important;
 }
 
 a.bg-light:hover, a.bg-light:focus,
@@ -9950,10 +9950,26 @@ h3 {
     border-color: #dee2e6;
   }
 }
-body,
+
+body {
+    height: 100%;
+    margin: 0;
+}
 html {
-  width: 100%;
-  height: 100%;
+margin: 0;
+    padding-bottom: 30px;
+    min-height: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    position: relative;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
 }
 
 hr.divider {
@@ -9985,7 +10001,6 @@ hr.light {
 
 #mainNav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  background-color: #fff;
   transition: background-color 0.2s ease;
 }
 #mainNav .navbar-brand {
@@ -10029,7 +10044,7 @@ hr.light {
   }
   #mainNav.navbar-scrolled {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    background-color: #fff;
+    background-color: #345A61 !important;
   }
   #mainNav.navbar-scrolled .navbar-brand {
     color: #212529;
@@ -10048,7 +10063,7 @@ hr.light {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../img/bg-masthead.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
