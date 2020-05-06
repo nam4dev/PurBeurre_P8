@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Détail produit{% endblock %}
+
+{% block content %}
+<section class="page-section bg-primary" id="head-section" style="background-image: url('{{ product.img }}');">
+    <div class="col-lg-12 text-center text-white">
+        <!-- changer cette partie pour mettre l'aliment avec son image en fond d'écran -->
+        <h class="text-uppercase">{{ product.name}}</h>
+    </div>
+</section>
+<section class="page-section bg-secondary" id="detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 text-center">
+                <!-- nutriscore-->
+            </div>
+            <div class="col-lg-6 col-md-6 text-center">
+                <!-- reperes nutritionnels pour 100g -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center text-white">
+                <!-- faire un bouton ?-->
+                <h3><a id="off-product-link" href="{{product.url}}">Voir la fiche d'Openfoodfacts</a></h3>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

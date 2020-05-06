@@ -2,8 +2,32 @@
 
 {% load static %}
 
-{% block title %}Results{% endblock %}
+{% block title %}Résultats{% endblock %}
 
 {% block content %}
+
+<section class="page-section bg-primary" id="head-section">
+    <div class="col-lg-12 text-center text-white">
+        <!-- changer cette partie pour mettre l'aliment avec son image en fond d'écran -->
+        <h1 class="text-uppercase">Mes aliments sauvegardés</h1>
+    </div>
+</section>
+<section class="page-section bg-secondary" id="results">
+    <div class="col-lg-12 text-center text-white">
+        <h2>Vous pouvez remplacer cet aliment par : </h2>
+    </div>
+    {% for product in substitutes %}
+    <div class="col-lg-4 text-center">
+        <div class="img-container">
+                <!-- affichage des resultats avec possibilité de les enregistre si connecté.-->
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-lg-12 text-center text-white">
+        <h2>Nous n'avons pas trouvé de substitut à l'aliment recherché.</h2>
+        <p>Vous pouvez tenter une nouvelle recherche.</p>
+    </div>
+    {% endfor %}
+</section>
 
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Favorites{% endblock %}
+{% block title %}Favoris{% endblock %}
 
 {% block content %}
 
@@ -11,6 +11,16 @@
         <h1 class="text-uppercase">Mes aliments sauvegardés</h1>
     </div>
 </section>
-
+<section class="page-section bg-secondary" id="favorites">
+    {% for product in favorites_saved %}
+    <!-- affichage des favoris avec possibilité de les supprimer.-->
+    {% empty %}
+    <div class="col-lg-12 text-center text-white">
+        <h2>Vous n'avez pas encore d'aliments sauvegardés dans vos favoris</h2>
+        <p>Après avoir effectué une recherche d'aliments de substitution, vous pouvez sauvegarder les réponses qui vous intéressent et les retrouver sur cette page.</p>
+    </div>
+    {% else %}
+    {% endfor %}
+</section>
 
 {% endblock %}
