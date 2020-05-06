@@ -80,15 +80,15 @@ WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = { # reactiver qd j'aurai une db
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',   # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.
-    #     'NAME': 'pur_beurre',             # Nom de la base de données
-    #     'USER': '<nom d\'utilisateur>',
-    #     'PASSWORD': '<mot de passe postgresql>',
-    #     'HOST': '127.0.0.1',                    # Utile si votre base de données est sur une autre machine
-    #     'PORT': '3306',                         # ... et si elle utilise un autre port que celui par défaut
-    # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',   # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.
+        'NAME': 'pur_beurre',             # Nom de la base de données
+        'USER': '<nom d\'utilisateur>',
+        'PASSWORD': '<mot de passe postgresql>',
+        'HOST': '127.0.0.1',                    # Utile si votre base de données est sur une autre machine
+        'PORT': '3306',                         # ... et si elle utilise un autre port que celui par défaut
+    }
 }
 
 
