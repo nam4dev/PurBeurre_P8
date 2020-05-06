@@ -1,15 +1,17 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.core.urlresolvers import reverse
+from .forms import ConnectionForm
 
 
 # Create your views here.
 
-def connexion(request):
+def connection(request):
     error = False
 
     if request.method == "POST":
-        form = ConnexionForm(request.POST)
+        form = ConnectionForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
@@ -19,8 +21,16 @@ def connexion(request):
             else: # sinon une erreur sera affichée
                 error = True
     else:
-        form = ConnexionForm()
+        form = ConnectionForm()
 
-    return render(request, 'purbeurre_user/connexion.html', locals())
+    return render(request, 'purbeurre_user/connection.html', locals())
 
-def 
+
+def my_account(request):
+
+    return render(request, 'purbeurre_user/my_account.html', locals())
+
+
+def disconnection(request):
+    logout(request)
+    return redirect(reverse(connection))
