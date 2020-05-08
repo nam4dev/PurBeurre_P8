@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',   # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.
-        'NAME': 'pur_beurre',             # Nom de la base de données
-        'USER': '<nom d\'utilisateur>',
-        'PASSWORD': '<mot de passe postgresql>',
+        'NAME': 'pur_beurre_p8',             # Nom de la base de données
+        'USER': 'postgres',
+        'PASSWORD': 'mvtm,js1np',
         'HOST': '127.0.0.1',                    # Utile si votre base de données est sur une autre machine
-        'PORT': '3306',                         # ... et si elle utilise un autre port que celui par défaut
+        'PORT': '5433',                         # ... et si elle utilise un autre port que celui par défaut
     }
 }
 
