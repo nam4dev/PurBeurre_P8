@@ -2,6 +2,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 from .forms import ConnectionForm, AccountForm
 
 
@@ -9,7 +10,6 @@ from .forms import ConnectionForm, AccountForm
 
 def connection(request):
     error = False
-
     if request.method == "POST":
         form = ConnectionForm(request.POST)
         if form.is_valid():
@@ -30,7 +30,7 @@ def my_account(request):
 
 def disconnection(request):
     logout(request)
-    return request(request, 'purbeurre_home/home.html')
+    return render(request, 'purbeurre_home/home.html', locals())
 
 
 def create_account(request):
@@ -44,6 +44,7 @@ def create_account(request):
             first_name = form.cleaned_data["first_name"]
             user = User.objects.create_user(username, username, password)  # Création utilisateur
             user.first_name = first_name
+            user.save()
             if user:  # Si l'objet renvoyé n'est pas None
                 login(request, user)  # nous connectons l'utilisateur
             else: # sinon une erreur sera affichée
