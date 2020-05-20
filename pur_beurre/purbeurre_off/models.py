@@ -19,6 +19,7 @@ class Product(models.Model):
     """
     Class building products and managing their interactions with other objects.
     """
+
     class Meta:
         unique_together = ('link', 'category',)
 

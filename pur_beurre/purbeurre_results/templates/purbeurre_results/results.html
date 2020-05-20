@@ -8,18 +8,24 @@
 
 <section class="page-section bg-primary" id="head-section">
     <div class="col-lg-12 text-center text-white">
-        <!-- changer cette partie pour mettre l'aliment avec son image en fond d'écran -->
-        <h1 class="text-uppercase">Mes aliments sauvegardés</h1>
+        <!-- changer cette partie pour mettre l'aliment avec son image {% product_searched.img % } en fond d'écran -->
+        <h1 class="text-uppercase">{{ product_searched.name }}</h1>
     </div>
 </section>
 <section class="page-section bg-secondary" id="results">
     <div class="col-lg-12 text-center text-white">
         <h2>Vous pouvez remplacer cet aliment par : </h2>
     </div>
-    {% for product in substitutes %}
+    {% for product in substitutes_list %}
     <div class="col-lg-4 text-center">
         <div class="img-container">
-                <!-- affichage des resultats avec possibilité de les enregistre si connecté.-->
+            <a href="{{ product.link }}">
+                <img class="product-picture" src="{{ product.img|resize_img:400 }}" alt="{{ product.name }}">
+                <p class="product-name">{{ product.name }}</p>
+            </a>
+            {% if user.is_authenticated %}
+
+            {% endif %}
         </div>
     </div>
     {% empty %}

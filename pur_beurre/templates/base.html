@@ -42,7 +42,8 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item">
-                            <form> ### formulaire de recherche produit de substitution
+                            <form class="form-inline" method="POST" action="{% url 'purbeurre_results:search' %}" >
+                                <input class="form-control search" name="query" placeholder="Chercher" aria-label="Chercher">
                             </form>
                         </li>
                         <li class="nav-item">

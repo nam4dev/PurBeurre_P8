@@ -32,7 +32,7 @@ class Command(BaseCommand):
         :param products: list of products from the API.
         :param category: the category instance to search for products in the API.
         """
-
+        print("nb prods" + str(len(products)))
         for i in (range(0, len(products) - 1)):
             for product in products[i]:
                 url = product.get('url')
@@ -53,7 +53,7 @@ class Command(BaseCommand):
                         link=url,
                         nutriscore=nutriscore,
                         category=category,
-                        img=img)  # save ? ...
+                        img=img)
 
     def get_products(self, category, url, products_number):
         """
@@ -67,17 +67,23 @@ class Command(BaseCommand):
 
         products = []
         pages_count = 1
-        needed_pages = products_number / 20
-        # if we take too many pages, it's too big for Heroku DB
-        if needed_pages > 20:
-            needed_pages = 20
+        # needed_pages = products_number / 20
+        # # if we take too many pages, it's too big for Heroku DB
+        # if needed_pages > 50:
+        #     needed_pages = 50
+        #     print("needed pages" + str(needed_pages))
+        needed_pages = 250
+
         while pages_count < needed_pages:
             # we request pages one by one
+            # '&json=1&page_size=250'
+            #'&json=' + str(pages_count)
             request_products = requests.get(url + '&json=' + str(pages_count))
             products_json = request_products.json()
+
             products.append(products_json.get('products'))
             pages_count += 1
-            self.sort_and_register_products(products, category)
+        self.sort_and_register_products(products, category)
 
     def get_categories(self, data_tags):
         """
@@ -91,14 +97,14 @@ class Command(BaseCommand):
         for idx, data in enumerate(data_tags):
             name = data['name']
             products_number = data['products']
-            # for a useful category, we want at least 200 products
-            if products_number > 200:
+            # for a useful category, we want at least 1000 products
+            if products_number > 1000:
                 if ":" not in name and "-" not in name:
-                    # category_registered = Category(name=name)
-                    category, _ = Category.objects.get_or_create(name=name)  # save ? ...
+                    # save category in DB
+                    category, _ = Category.objects.get_or_create(name=name)
                     # get products for this category
                     self.get_products(category, data['url'], products_number)
                     category_selected += 1
 
-            if category_selected == 12:
+            if category_selected == 15:
                 break
