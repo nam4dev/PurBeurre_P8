@@ -2,7 +2,7 @@
 """ populating and updating purbeurre DB from openfoodfacts API."""
 
 from django.core.management.base import BaseCommand
-from off.models import Product, Category
+from purbeurre_off.models import Product, Category
 import requests
 # from django.core.management.base import CommandError
 # from django.db import IntegrityError
@@ -47,15 +47,7 @@ class Command(BaseCommand):
                     country.lower().strip() == "france",
                     img
                 ]):
-                    # insert product in database
-                    # options = {
-                    #     "name": name,
-                    #     "link": url,
-                    #     "nutriscore": nutriscore,
-                    #     "category": category_name,
-                    #     "img": img
-                    # }
-                    # product = Product(**options)
+                    # insert product in DB
                     Product.objects.get_or_create(
                         name=name,
                         link=url,
@@ -77,8 +69,8 @@ class Command(BaseCommand):
         pages_count = 1
         needed_pages = products_number / 20
         # if we take too many pages, it's too big for Heroku DB
-        if needed_pages > 12:
-            needed_pages = 12
+        if needed_pages > 20:
+            needed_pages = 20
         while pages_count < needed_pages:
             # we request pages one by one
             request_products = requests.get(url + '&json=' + str(pages_count))

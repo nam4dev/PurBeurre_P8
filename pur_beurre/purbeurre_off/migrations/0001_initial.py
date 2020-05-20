@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('nutriscore', models.CharField(max_length=1)),
                 ('img', models.URLField()),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='off.Category')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='purbeurre_off.Category')),
             ],
         ),
     ]

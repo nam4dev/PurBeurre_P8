@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'off',
+    'purbeurre_off',
     'purbeurre_home',
     'purbeurre_results',
     'purbeurre_user',

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from off import models
+from purbeurre_off import models
 
 
 @admin.register(models.Category)
