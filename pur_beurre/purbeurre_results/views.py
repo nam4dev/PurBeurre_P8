@@ -4,7 +4,7 @@ from purbeurre_off.models import Product
 
 
 # Create your views here.
-def search(request):
+def results(request):
     query = request.GET.get('query')
     # looking for the product
     product_searched = Product.objects.filter(name__iexact=query).first()
@@ -27,3 +27,7 @@ def search(request):
                 substitutes_list.append(product)
 
         return render(request, 'purbeurre_results/results.html', locals())
+
+
+def detail(request):
+    pass

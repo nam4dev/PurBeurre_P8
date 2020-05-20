@@ -19,7 +19,8 @@
     {% for product in substitutes_list %}
     <div class="col-lg-4 text-center">
         <div class="img-container">
-            <a href="{{ product.link }}">
+            <a href="{% url 'results:detail' product=product %}">
+                <span class="notify-badge">{{ product.nutriscore }}</span>
                 <img class="product-picture" src="{{ product.img|resize_img:400 }}" alt="{{ product.name }}">
                 <p class="product-name">{{ product.name }}</p>
             </a>
