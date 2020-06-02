@@ -13,7 +13,7 @@ def results(request):
         product_searched = Product.objects.filter(name__icontains=query).first()
     # if still nothing found, product not found
     if not product_searched:
-        pass # write something to return page : product not found
+        return render(request, 'purbeurre_results/prod_not_found.html', locals())
     else:
         # now search substitutes
         products_list = Product.objects.filter(category_id=product_searched.category_id)
@@ -26,7 +26,7 @@ def results(request):
             else:
                 substitutes_list.append(product)
 
-        return render(request, 'purbeurre_results/results.html', locals())
+    return render(request, 'purbeurre_results/results.html', locals())
 
 
 def detail(request):

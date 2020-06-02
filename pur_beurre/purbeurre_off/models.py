@@ -28,3 +28,4 @@ class Product(models.Model):
     nutriscore = models.CharField(max_length=1)
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     img = models.URLField()
+    nutrition_img = models.URLField()

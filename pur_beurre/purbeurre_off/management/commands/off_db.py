@@ -4,16 +4,14 @@
 from django.core.management.base import BaseCommand
 from purbeurre_off.models import Product, Category
 import requests
+
+
 # from django.core.management.base import CommandError
 # from django.db import IntegrityError
 
 
 class Command(BaseCommand):
     help = 'Update DB from OFF API'
-
-    # def add_arguments(self, parser):
-    #     # parser.add_argument('poll_ids', nargs='+', type=int)
-    #     pass
 
     def handle(self, *args, **options):
         self.stdout.write('updating DB')
@@ -25,35 +23,42 @@ class Command(BaseCommand):
         self.get_categories(data_tags)
         self.stdout.write(self.style.SUCCESS('DB successfully updated'))
 
-    def sort_and_register_products(self, products, category):
+    def sort_and_register_products(self, products, category, nb_prod):
         """
         Sorting products from the API to keep only those with useful information.
         And inserting selected products in the database.
-        :param products: list of products from the API.
+        :param products: list of product from the API to be registered in the DB.
         :param category: the category instance to search for products in the API.
+        :param nb_prod: number of products already registered in the DB.
+        :return nb_prod: incremented nb_prod for each product added in the DB.
         """
-        print("nb prods" + str(len(products)))
-        for i in (range(0, len(products) - 1)):
-            for product in products[i]:
-                url = product.get('url')
-                name = product.get('product_name_fr')
-                nutriscore = product.get('nutrition_grades')
-                country = product.get('countries')
-                img = product.get("image_small_url")
-                if all([
-                    url,
-                    name,
-                    nutriscore,
-                    country.lower().strip() == "france",
-                    img
-                ]):
-                    # insert product in DB
-                    Product.objects.get_or_create(
-                        name=name,
-                        link=url,
-                        nutriscore=nutriscore,
-                        category=category,
-                        img=img)
+
+        for product in products:
+            url = product.get('url')
+            name = product.get('product_name_fr')
+            nutriscore = product.get('nutrition_grades')
+            country = product.get('countries')
+            img = product.get("image_url")
+            nutrition_img = product.get("image_nutrition_small_url")
+            if all([
+                url,
+                name,
+                nutriscore,
+                country.lower().strip() == "france",
+                img,
+                nutrition_img
+            ]):
+                # insert product in DB
+                Product.objects.get_or_create(
+                    name=name,
+                    link=url,
+                    nutriscore=nutriscore,
+                    category=category,
+                    img=img,
+                    nutrition_img=nutrition_img)
+                nb_prod += 1
+
+        return nb_prod
 
     def get_products(self, category, url, products_number):
         """
@@ -65,25 +70,19 @@ class Command(BaseCommand):
         :param products_number: number of products contained in this category.
         """
 
-        products = []
         pages_count = 1
-        # needed_pages = products_number / 20
-        # # if we take too many pages, it's too big for Heroku DB
-        # if needed_pages > 50:
-        #     needed_pages = 50
-        #     print("needed pages" + str(needed_pages))
-        needed_pages = 250
-
-        while pages_count < needed_pages:
-            # we request pages one by one
-            # '&json=1&page_size=250'
-            #'&json=' + str(pages_count)
-            request_products = requests.get(url + '&json=' + str(pages_count))
-            products_json = request_products.json()
-
-            products.append(products_json.get('products'))
+        # 20 products / page
+        needed_pages = products_number / 20
+        nb_prod = 0
+        while (pages_count < needed_pages) and (nb_prod < 500):
+            # we request pages one by one, and we limit number of products for Heroku DB size
+            request_products = requests.get(f'{url}/{str(pages_count)}.json')
             pages_count += 1
-        self.sort_and_register_products(products, category)
+            products_json = request_products.json()
+            products = products_json.get('products')
+            nb_prod = self.sort_and_register_products(products, category, nb_prod)
+
+        print(f'500 products inserted for {category.name} -> break')
 
     def get_categories(self, data_tags):
         """
@@ -107,4 +106,5 @@ class Command(BaseCommand):
                     category_selected += 1
 
             if category_selected == 15:
+                print(f'{category_selected} categories inserted in DB -> break')
                 break

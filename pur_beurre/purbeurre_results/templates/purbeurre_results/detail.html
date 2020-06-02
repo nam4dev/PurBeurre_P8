@@ -8,23 +8,24 @@
 <section class="page-section bg-primary" id="head-section" style="background-image: url('{{ product.img }}');">
     <div class="col-lg-12 text-center text-white">
         <!-- changer cette partie pour mettre l'aliment avec son image en fond d'écran -->
-        <h class="text-uppercase">{{ product.name}}</h>
+        <h1 class="text-uppercase">{{ product.name }}</h1>
     </div>
 </section>
 <section class="page-section bg-secondary" id="detail">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 text-center">
-                <!-- nutriscore-->
+                <p>Nutriscore</p>
+                <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutriscore }}.svg">
             </div>
             <div class="col-lg-6 col-md-6 text-center">
-                <!-- reperes nutritionnels pour 100g -->
+                <p>Repères nutritionnels pour 100g</p>
+                <img src="{{ product.nutrition_img }}.">
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 text-center text-white">
-                <!-- faire un bouton ?-->
-                <h3><a id="off-product-link" href="{{product.url}}">Voir la fiche d'Openfoodfacts</a></h3>
+            <div class="container my-4 text-center">
+                <a id="off-product-link" href="{{ product.url }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Voir la fiche d'Openfoodfacts</a>
             </div>
         </div>
     </div>
