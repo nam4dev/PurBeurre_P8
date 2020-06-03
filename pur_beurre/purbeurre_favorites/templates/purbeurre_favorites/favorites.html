@@ -22,7 +22,7 @@
                 <p class="product-name">{{ product.name }}</p>
                 <form class="delete" method="POST" action="{% url 'delete' %}">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-primary" value="Supprimer" />
+                    <input type="submit" class="btn btn-danger" value="Supprimer" />
                 </form>
             </a>
         </div>
