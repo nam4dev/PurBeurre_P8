@@ -17,7 +17,7 @@ class TestFavorite(TestCase):
 
     def setUp(self):
         # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings')
-        # django.setup()
+        django.setup()
         self.model = Favorite()
 
     def test_models_columns(self):

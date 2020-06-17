@@ -37,7 +37,7 @@ class Command(BaseCommand):
         for product in products:
             url = product.get('url')
             name = product.get('product_name_fr')
-            nutriscore = product.get('nutrition_grades').upper()
+            nutriscore = product.get('nutrition_grades')
             country = product.get('countries')
             img = product.get("image_url")
             nutrition_img = product.get("image_nutrition_small_url")
@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 Product.objects.get_or_create(
                     name=name,
                     link=url,
-                    nutriscore=nutriscore,
+                    nutriscore=nutriscore.upper(),
                     category=category,
                     img=img,
                     nutrition_img=nutrition_img
