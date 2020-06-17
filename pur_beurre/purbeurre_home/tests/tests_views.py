@@ -3,7 +3,6 @@ from django.urls import reverse
 
 
 # Create your tests here.
-# test home
 class TestHome(TestCase):
     """
     Home app views test.

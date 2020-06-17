@@ -1,4 +1,6 @@
-from django.test import TestCase
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.test import TestCase, Client
 from django.urls import reverse
 
 
@@ -10,7 +12,9 @@ class TestFavoritesViews(TestCase):
     def setUp(self):
         self.username = 'moi@gmail.com'
         self.password = 'moi'
+        self.client = Client()
         self.client.login(username=self.username, password=self.password)
+        # self.assertTrue(login)
 
     def test_favorites_favorites(self):
         """
@@ -21,7 +25,11 @@ class TestFavoritesViews(TestCase):
         self.assertTemplateUsed('purbeurre_favorites/favorites.html')
 
     def test_favorites_save(self):
-        pass
+        response = self.client.get(reverse('favorites:save'), )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('purbeurre_favorites/favorites.html')
 
     def test_favorites_remove(self):
-        pass
+        response = self.client.get(reverse('favorites:remove'), )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('purbeurre_favorites/favorites.html')

@@ -6,10 +6,6 @@ from purbeurre_off.models import Product, Category
 import requests
 
 
-# from django.core.management.base import CommandError
-# from django.db import IntegrityError
-
-
 class Command(BaseCommand):
     help = 'Update DB from OFF API'
 
