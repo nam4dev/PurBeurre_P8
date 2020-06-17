@@ -23,7 +23,7 @@
             <div class="col-lg-4 text-center">
                 <div class="img-container">
                     <a href="{% url 'detail' product.id %}">
-                        <span class="nutribadge {{ product.nutriscore }}-nutriscore text-white">{{ product.nutriscore }}</span>
+                        <span class="nutribadge {{ product.nutriscore }}-nutriscore text-white uppercase">{{ product.nutriscore }}</span>
                         <img class="product-picture" src="{{ product.img }}" alt="{{ product.name }}">
                         <p class="product-name">{{ product.name }}</p>
                         {% if user.is_authenticated %}

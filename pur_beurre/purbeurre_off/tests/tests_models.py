@@ -44,20 +44,35 @@ class TestProduct(TestCase):
     """
 
     def setUp(self):
-        # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings')
-        # django.setup()
-        self.model = Product()
+        self.category = Category.objects.create(name="category")
+        Product.objects.create(
+            name="name",
+            link="http://url.com",
+            nutriscore="a",
+            category=self.category,
+            img="http://img.com",
+            nutrition_img=""
+        )
 
-    def test_models_columns(self):
-        self.assertIsInstance(self.model.name, models.CharField)
-        self.assertIsInstance(self.model.link, models.URLField)
-        self.assertIsInstance(self.model.nutriscore, models.CharField)
-        self.assertIsInstance(self.model.category, models.ForeignKey)
-        self.assertIsInstance(self.model.img, models.URLField)
-        self.assertIsInstance(self.model.nutrition_img, models.URLField)
+    # def test_models_columns(self):
+        # self.assertIsInstance(self.model.name, Product)
+        # self.assertIsInstance(self.model.link, models.URLField)
+        # self.assertIsInstance(self.model.nutriscore, models.CharField)
+        # self.assertIsInstance(self.model.category, models.ForeignKey)
+        # self.assertIsInstance(self.model.img, models.URLField)
+        # self.assertIsInstance(self.model.nutrition_img, models.URLField)
 
     def test_product_objects(self):
-        self.assertIsInstance(self.model.objects, ProductManager)
+        self.assertIsInstance(Product.objects, ProductManager)
+
+    def test_product_columns(self):
+        product = Product.objects.get(name="name")
+        self.assertEqual("name", product.name)
+        self.assertEqual("http://url.com", product.link)
+        self.assertEqual("a", product.nutriscore)
+        self.assertEqual(self.category, product.category)
+        self.assertEqual("http://img.com", product.img)
+        self.assertEqual("", product.nutrition_img)
 
 
 class TestProductIntegration(TestCase):
@@ -70,12 +85,11 @@ class TestCategory(TestCase):
     """
 
     def setUp(self):
-        # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings')
-        # django.setup()
-        self.model = Category()
+        self.category = Category.objects.create(name="category")
+        self.model = Category(self.category)
 
-    def test_models_columns(self):
-        self.assertIsInstance(self.model.name, models.CharField)
+    def test_category_columns(self):
+        self.assertIsInstance(self.category, Category)
 
 
 class TestCategoryIntegration(TestCase):

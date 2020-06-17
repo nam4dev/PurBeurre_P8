@@ -4,7 +4,9 @@ background-color:
 }
 
 /* badges for nutriscores on products pictures */
-
+.uppercase {
+    text-transform: uppercase;
+}
 .nutribadge {
     position: absolute;
     width: 2rem;

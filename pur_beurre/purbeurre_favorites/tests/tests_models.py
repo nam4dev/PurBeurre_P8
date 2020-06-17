@@ -1,31 +1,38 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
-import unittest
-from django.conf import settings
-import os
-import django
-from django.db import models
+
+from purbeurre_off.models import Category
 from ..models import Favorite
 from ..models import FavoriteManager
+from ..models import Product
 
 
 # Create your tests here.
 class TestFavorite(TestCase):
-# class TestFavorite(unittest.TestCase):
     """
     Tests favorite creation in DB.
     """
 
     def setUp(self):
-        # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings')
-        django.setup()
-        self.model = Favorite()
+
+        user = User.objects.create(username="abc@toto.fr", password="abc")
+        category = Category.objects.create(name="category")
+        product = Product.objects.create(
+                    name="name",
+                    link="http://url.com",
+                    nutriscore="a".upper(),
+                    category=category,
+                    img="http://img.com",
+                    nutrition_img=""
+                )
+        self.model = Favorite(user=user, favorite=product)
 
     def test_models_columns(self):
-        self.assertIsInstance(self.model.user, models.ForeignKey)
-        self.assertIsInstance(self.model.favorite, models.ForeignKey)
+        self.assertIsInstance(self.model.user, User)
+        self.assertIsInstance(self.model.favorite, Product)
 
     def test_favorite_objects(self):
-        self.assertIsInstance(self.model.objects, FavoriteManager)
+        self.assertIsInstance(Favorite.objects, FavoriteManager)
 
 
 class TestFavoriteIntegration(TestCase):

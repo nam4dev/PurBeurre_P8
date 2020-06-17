@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 Product.objects.get_or_create(
                     name=name,
                     link=url,
-                    nutriscore=nutriscore.upper(),
+                    nutriscore=nutriscore.lower(),
                     category=category,
                     img=img,
                     nutrition_img=nutrition_img
