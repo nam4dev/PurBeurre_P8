@@ -6,11 +6,17 @@ Créez une plateforme pour amateurs de Nutella
 
 ### Constraints
 > tests included in the project
+
 > use of PostgreSql to deploy the project with Heroku
+
 > include a page with "Mentions Légales"
+
 > PEP8 compliant
+
 > Github versioning
+
 > code written in english
+
 > agile methodology
 
 ### How to use this program

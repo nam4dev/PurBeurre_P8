@@ -6,12 +6,8 @@ from purbeurre_off.models import Product
 # Create your views here.
 def results(request):
     query = request.GET.get('query')
-    # looking for the product
-    product_searched = Product.objects.filter(name__iexact=query).first()
-    # if product not found, looking for a product with a similar name
-    if not product_searched:
-        product_searched = Product.objects.filter(name__icontains=query).first()
-    # if still nothing found, product not found
+    product_searched = Product.objects.search(query)
+    # if nothing found, product not found
     if not product_searched:
         return render(request, 'purbeurre_results/prod_not_found.html', locals())
     else:
@@ -29,5 +25,6 @@ def results(request):
     return render(request, 'purbeurre_results/results.html', locals())
 
 
-def detail(request):
-    pass
+def detail(request, product_id=None):
+    product = Product.objects.filter(id=product_id)
+    return render(request, 'purbeurre_results/detail.html', locals())

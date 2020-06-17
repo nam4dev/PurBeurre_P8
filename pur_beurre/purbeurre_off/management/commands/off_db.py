@@ -15,6 +15,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write('updating DB')
+        Product.objects.all().delete()
         api_url = 'https://fr.openfoodfacts.org/categories&json=1'
         request_categories = requests.get(api_url)
         categories_json = request_categories.json()
@@ -36,13 +37,13 @@ class Command(BaseCommand):
         for product in products:
             url = product.get('url')
             name = product.get('product_name_fr')
-            nutriscore = product.get('nutrition_grades')
+            nutriscore = product.get('nutrition_grades').upper()
             country = product.get('countries')
             img = product.get("image_url")
             nutrition_img = product.get("image_nutrition_small_url")
             if all([
                 url,
-                name,
+                name and len(name) <= 100,
                 nutriscore,
                 country.lower().strip() == "france",
                 img,
@@ -55,7 +56,9 @@ class Command(BaseCommand):
                     nutriscore=nutriscore,
                     category=category,
                     img=img,
-                    nutrition_img=nutrition_img)
+                    nutrition_img=nutrition_img
+                )
+
                 nb_prod += 1
 
         return nb_prod

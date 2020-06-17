@@ -19,15 +19,16 @@
     {% for product in substitutes_list %}
     <div class="col-lg-4 text-center">
         <div class="img-container">
-            <a href="{% url 'detail' product=product %}">
-                <span class="nutribadge {% product.nutriscore %}-nutriscore text-white">{{ product.nutriscore }}</span>
-                <img class="product-picture" src="{{ product.img|resize_img:400 }}" alt="{{ product.name }}">
+            <a href="{% url 'detail' product.id %}">
+                <span class="nutribadge {{ product.nutriscore }}-nutriscore text-white">{{ product.nutriscore }}</span>
+                <img class="product-picture" src="{{ product.img }}" alt="{{ product.name }}">
                 <p class="product-name">{{ product.name }}</p>
                 {% if user.is_authenticated %}
                 <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                <form class="scd doc    ave" method="GET" action="{% url 'save' %}">
+                <form class="save" method="GET" action="{% url 'save' %}">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-primary" value="Sauvegarder" />
+                    <input type="hidden" name="product" value="{{ product.id }}">
+                    <input type="submit" class="btn btn-primary" name="prod" value="Sauvegarder" />
                 </form>
                 {% endif %}
             </a>
