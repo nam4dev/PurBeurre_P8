@@ -10,7 +10,7 @@ from django.forms.models import model_to_dict
 
 # index
 def favorites(request):
-    """ Exemple de page non valide au niveau HTML pour que l'exemple soit concis """
+    """ Shows the favorites saved by the user. """
     user = request.user
     favorites_found = Favorite.objects.filter(user__exact=user)
     favorites_saved = []
@@ -21,7 +21,7 @@ def favorites(request):
 
 
 def save(request):
-    # enreg un produit dans la DB
+    """ Saves a new product for the user in the favorites table of the DB"""
     product = request.GET.get('product')
     user = request.user
     Favorite.objects.save(product, user)
@@ -29,7 +29,7 @@ def save(request):
 
 
 def remove(request):
-    # suppr un prod de la base
+    """ Removes a new product for the user in the favorites table of the DB"""
     product = request.POST.get('product')
     user = request.user
     Favorite.objects.remove(product, user)
