@@ -47,6 +47,7 @@ def create_account(request):
             user.save()
             if user:  # Si l'objet renvoyé n'est pas None
                 login(request, user)  # nous connectons l'utilisateur
+                return redirect('my_account')
             else: # sinon une erreur sera affichée
                 error = True
     else:

@@ -88,8 +88,11 @@ class TestCategory(TestCase):
         self.category = Category.objects.create(name="category")
         self.model = Category(self.category)
 
-    def test_category_columns(self):
+    def test_category_objects(self):
         self.assertIsInstance(self.category, Category)
+
+    def test_category_columns(self):
+        self.assertEqual("category", self.category.name)
 
 
 class TestCategoryIntegration(TestCase):
