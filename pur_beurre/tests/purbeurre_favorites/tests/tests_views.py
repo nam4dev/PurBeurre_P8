@@ -41,8 +41,11 @@ class TestFavoritesViews(TestCase):
         response = self.client.get(reverse('save'), {'product': self.product.id})
         self.assertEqual(response.status_code, 302)
         self.assertTemplateUsed('purbeurre_favorites/favorites.html')
+        prod_saved = Favorite.objects.first()
+        self.assertEqual(prod_saved, self.favorite)
 
     def test_favorites_remove(self):
-        response = self.client.post(reverse('remove',), {'product': self.favorite.id})
+        response = self.client.post(reverse('remove',), {'product': self.product.id})
         self.assertEqual(response.status_code, 302)
         self.assertTemplateUsed('purbeurre_favorites/favorites.html')
+        self.assertIsNone(Favorite.objects.filter(id=self.product.id, user=self.user.id))

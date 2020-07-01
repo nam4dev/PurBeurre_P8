@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ..management.commands.off_db import Command
+from purbeurre_off.management.commands.off_db import Command
 
 
 class TestCommand(TestCase):

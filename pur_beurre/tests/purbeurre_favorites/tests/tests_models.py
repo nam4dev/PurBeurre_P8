@@ -2,9 +2,9 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from purbeurre_off.models import Category
-from ..models import Favorite
-from ..models import FavoriteManager
-from ..models import Product
+from purbeurre_favorites.models import Favorite
+from purbeurre_favorites.models import FavoriteManager
+from purbeurre_favorites.models import Product
 
 
 # Create your tests here.

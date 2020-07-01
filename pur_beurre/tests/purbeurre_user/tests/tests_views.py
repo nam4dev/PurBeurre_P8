@@ -36,7 +36,10 @@ class TestUserViews(TestCase):
         self.assertTemplateUsed('purbeurre_user/my_account.html')
 
     def test_user_disconnection(self):
-        pass
+        # self.client.logout()
+        response = self.client.get(reverse('disconnection'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('purbeurre_home/home.html')
 
     def test_user_create_account(self):
         response = self.client.post(reverse('create_account'))

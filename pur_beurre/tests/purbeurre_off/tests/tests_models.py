@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.db import models
 
-from ..models import Category, Product, ProductManager
+from purbeurre_off.models import Category, Product, ProductManager
 
 
 # # Create your tests here.
