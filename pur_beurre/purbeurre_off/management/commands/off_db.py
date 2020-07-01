@@ -35,8 +35,8 @@ class Command(BaseCommand):
             name = product.get('product_name_fr')
             nutriscore = product.get('nutrition_grades')
             country = product.get('countries')
-            img = product.get("image_url")
-            nutrition_img = product.get("image_nutrition_small_url")
+            img = product.get('image_url')
+            nutrition_img = product.get('image_nutrition_small_url')
             if all([
                 url,
                 name and len(name) <= 100,

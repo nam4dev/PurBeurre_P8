@@ -19,7 +19,7 @@
                 <div class="img-container">
                     <!-- shows the favorites with button to delete.-->
                     <a href="{% url 'detail' product.id %}">
-                        <span class="nutribadge {{ product.nutriscore }}-nutriscore text-white">{{ product.nutriscore }}</span>
+                        <span class="nutribadge {{ product.nutriscore }}-nutriscore text-white uppercase">{{ product.nutriscore }}</span>
                         <img class="product-picture" src="{{ product.img }}" alt="{{ product.name }}">
                         <p class="product-name">{{ product.name }}</p>
                         <form class="delete" method="POST" action="{% url 'remove' %}">
