@@ -49,23 +49,23 @@
                         <li class="nav-item">
                             {% if user.is_authenticated %}
                             <a class="nav-link js-scroll-trigger" href="{% url 'my_account' %}">
-                                <i class="far fa-user"></i>
+                                <i class="far fa-user fa-3x"></i>
                             </a>
                             {% else %}
                             <a class="nav-link js-scroll-trigger" href="{% url 'connection' %}">
-                                <i class="fas fa-sign-in-alt"></i>
+                                <i class="fas fa-sign-in-alt fa-3x"></i>
                             </a>
                             {% endif %}
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="{% url 'favorites' %}">
-                                <img src="{% static 'img/logo-favorites.svg' %}" alt="Mes aliments" id="favorites" width="50px">
+                                <img src="{% static 'img/logo-favorites.png' %}" alt="Mes aliments" id="favorites" width="29px">
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="{% url 'disconnection' %}">
-                                <i class="fas fa-sign-out-alt"></i>
+                                <i class="fas fa-sign-out-alt fa-3x"></i>
                             </a>
                         </li>
                         {% endif %}
