@@ -1,6 +1,7 @@
 from django.test import TestCase
 import unittest.mock as mock
 from purbeurre_off.management.commands.off_db import Command
+from purbeurre_off.models import Category
 from purbeurre_off.models import Product
 
 
@@ -11,14 +12,14 @@ class TestCommand(TestCase):
 
     def setUp(self):
         self.command = Command()
-        self.category = "category"
+        self.category, _ = Category.objects.get_or_create(name='testing category')
         self.product = {
             "name": "name",
             "link": "http://url.com",
             "nutriscore": "a",
             "category": self.category,
             "img": "http://img.com",
-            "nutrition_img": "http://img.com"
+            "nutrition_img": 1
         }
 
     def test_sort_and_register_products(self):
