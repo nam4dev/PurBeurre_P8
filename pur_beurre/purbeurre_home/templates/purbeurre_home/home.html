@@ -14,13 +14,15 @@
                             Du gras, oui, mais de qualité&nbsp;!
                         </h1>
                     </div>
-                    <div class="col-lg-8 align-self-baseline">
+                    <div class="col-lg-9 align-self-baseline">
                         <h2 class="text-white-75 font-weight-light mb-5">
                             Trouvez un produit de substitution pour ceux que vous consommez tous les jours.
                         </h2>
                         <form method="GET" action="{% url 'results' %}" >
-                            <input type="text" class="form-control search" name="query" placeholder="Produit">
-                            <button class="btn btn-primary" type="submit" value="Chercher">Chercher</button>
+                            <div class="row justify-content-center">
+                            <input type="text" class="col-lg-6 form-control search" name="query" placeholder="Produit">
+                            <button class="col-lg-2 btn btn-primary" type="submit" value="Chercher">Chercher</button>
+                            </div>
                         </form>
                     </div>
                 </div>

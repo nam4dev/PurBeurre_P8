@@ -82,20 +82,20 @@ WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',   # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.
-    #     'NAME': 'pur_beurre_p8',             # Nom de la base de données
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'mvtm,js1np',
-    #     'HOST': '127.0.0.1',                    # Utile si votre base de données est sur une autre machine
-    #     'PORT': '5433',                         # ... et si elle utilise un autre port que celui par défaut
-    # },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',   # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.
+        'NAME': 'pur_beurre_p8',             # Nom de la base de données
+        'USER': 'postgres',
+        'PASSWORD': 'mvtm,js1np',
+        'HOST': '127.0.0.1',                    # Utile si votre base de données est sur une autre machine
+        'PORT': '5433',                         # ... et si elle utilise un autre port que celui par défaut
+    },
 }
-DATABASES['default'] = {
-    'ENGINE': 'django.db.backends.sqlite3',
-    # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.
-    'NAME': 'pur_beurre/db.sqlite3',  # Nom de la base de données
-}
+# DATABASES['default'] = {
+#     'ENGINE': 'django.db.backends.sqlite3',
+#     # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.
+#     'NAME': 'pur_beurre/db.sqlite3',  # Nom de la base de données
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

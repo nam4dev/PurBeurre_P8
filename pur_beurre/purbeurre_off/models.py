@@ -17,19 +17,24 @@ class ProductManager(models.Manager):
             tuple[list[Product], Product]: The first matched product with or without substitutes
         """
         substitutes = []
-        first_product_found = None
+        product_found = None
         if query:
             # looking for the product
-            products_found = self.filter((
-                models.Q(name__iexact=query) | models.Q(name__icontains=query)
-            ))
+            products_found = self.filter(
+                #models.Q(name__iexact=query) | models.Q(name__icontains=query)
+                name__icontains=query
+            )
             if products_found:
-                first_product_found = products_found.first()
+                product_found = products_found.filter(name__iexact=query)
+                if product_found.count() > 1:
+                    product_found = product_found.first()
+                elif product_found.count() == 0:
+                    product_found = products_found.first()
                 substitutes = products_found.filter(
-                    category=first_product_found.category,
-                    nutriscore__lt=first_product_found.nutriscore
+                    category=product_found.category,
+                    nutriscore__lt=product_found.nutriscore
                 )
-        return substitutes, first_product_found
+        return substitutes, product_found
 
     def search_favorite(self, product):
         favorite_prod = self.filter(id__exact=product).first()
