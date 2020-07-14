@@ -164,7 +164,7 @@ a {
   background-color: transparent;
 }
 a:hover {
-  color: #d6370c;
+  color: #86EBE6;
   text-decoration: underline;
 }
 
@@ -4582,7 +4582,7 @@ input[type=button].btn-block {
 }
 .page-link:hover {
   z-index: 2;
-  color: #d6370c;
+  color: #C45525;
   text-decoration: none;
   background-color: #e9ecef;
   border-color: #dee2e6;
@@ -10056,7 +10056,7 @@ hr.light {
     color: #212529;
   }
   #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link:hover {
-    color: #345A61;
+    color: #fff;
   }
 }
 
