@@ -2,13 +2,34 @@ from django.db import models
 
 
 class ProductManager(models.Manager):
+
     def search(self, query):
-        # looking for the product
-        product_searched = self.filter(name__iexact=query).first()
-        # if product not found, looking for a product with a similar name
-        if not product_searched:
-            product_searched = self.filter(name__icontains=query).first()
-        return product_searched
+        """
+        Search the first product which matches the given query and associated substitutes
+
+        Notes:
+            Returns the substitutes as well if given parameter is set
+
+        Args:
+            query (str): The query terms
+
+        Returns:
+            tuple[list[Product], Product]: The first matched product with or without substitutes
+        """
+        substitutes = []
+        first_product_found = None
+        if query:
+            # looking for the product
+            products_found = self.filter((
+                models.Q(name__iexact=query) | models.Q(name__icontains=query)
+            ))
+            if products_found:
+                first_product_found = products_found.first()
+                substitutes = products_found.filter(
+                    category=first_product_found.category,
+                    nutriscore__lt=first_product_found.nutriscore
+                )
+        return substitutes, first_product_found
 
     def search_favorite(self, product):
         favorite_prod = self.filter(id__exact=product).first()

@@ -1,12 +1,13 @@
 /* my css */
 .page-top {
-background-color:
+    /*background-color:*/
 }
 
 /* badges for nutriscores on products pictures */
 .uppercase {
     text-transform: uppercase;
 }
+
 .nutribadge {
     position: absolute;
     width: 2rem;
@@ -16,6 +17,7 @@ background-color:
     line-height: 2rem;
     border-radius: 50%;
 }
+
 .a-nutriscore {
     background-color: #5aa242;
 }
@@ -30,4 +32,10 @@ background-color:
 }
 .e-nutriscore {
     background-color: #ff0000;
+}
+
+
+.product-picture {
+    max-width: 300px;
+    max-height: 300px;
 }
