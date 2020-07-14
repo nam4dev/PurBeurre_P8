@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for pur_beurre\settings.py: 100%</title>
+    <title>Coverage for pur_beurre/settings.py: 100%</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery.hotkeys.js"></script>
@@ -16,15 +16,15 @@
 <body class="pyfile">
 <div id="header">
     <div class="content">
-        <h1>Coverage for <b>pur_beurre\settings.py</b> :
+        <h1>Coverage for <b>pur_beurre/settings.py</b> :
             <span class="pc_cov">100%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            19 statements &nbsp;
-            <span class="run shortkey_r button_toggle_run">19 run</span>
-            <span class="mis show_mis shortkey_m button_toggle_mis">0 missing</span>
-            <span class="exc show_exc shortkey_x button_toggle_exc">0 excluded</span>
+            20 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">20 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">0 missing</button>
+            <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
 </div>
@@ -135,63 +135,67 @@
     <p id="t82" class="pln"><span class="n"><a href="#t82">82</a></span><span class="t"><span class="com"># https://docs.djangoproject.com/en/3.0/ref/settings/#databases</span>&nbsp;</span><span class="r"></span></p>
     <p id="t83" class="pln"><span class="n"><a href="#t83">83</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t84" class="run"><span class="n"><a href="#t84">84</a></span><span class="t"><span class="nam">DATABASES</span> <span class="op">=</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t85" class="pln"><span class="n"><a href="#t85">85</a></span><span class="t">    <span class="str">'default'</span><span class="op">:</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t86" class="pln"><span class="n"><a href="#t86">86</a></span><span class="t">        <span class="str">'ENGINE'</span><span class="op">:</span> <span class="str">'django.db.backends.postgresql'</span><span class="op">,</span>   <span class="com"># Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t87" class="pln"><span class="n"><a href="#t87">87</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'pur_beurre_p8'</span><span class="op">,</span>             <span class="com"># Nom de la base de donn&#233;es</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t88" class="pln"><span class="n"><a href="#t88">88</a></span><span class="t">        <span class="str">'USER'</span><span class="op">:</span> <span class="str">'postgres'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t89" class="pln"><span class="n"><a href="#t89">89</a></span><span class="t">        <span class="str">'PASSWORD'</span><span class="op">:</span> <span class="str">'mvtm,js1np'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t90" class="pln"><span class="n"><a href="#t90">90</a></span><span class="t">        <span class="str">'HOST'</span><span class="op">:</span> <span class="str">'127.0.0.1'</span><span class="op">,</span>                    <span class="com"># Utile si votre base de donn&#233;es est sur une autre machine</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t91" class="pln"><span class="n"><a href="#t91">91</a></span><span class="t">        <span class="str">'PORT'</span><span class="op">:</span> <span class="str">'5433'</span><span class="op">,</span>                         <span class="com"># ... et si elle utilise un autre port que celui par d&#233;faut</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t92" class="pln"><span class="n"><a href="#t92">92</a></span><span class="t">    <span class="op">}</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t85" class="pln"><span class="n"><a href="#t85">85</a></span><span class="t">    <span class="com"># 'default': {</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t86" class="pln"><span class="n"><a href="#t86">86</a></span><span class="t">    <span class="com">#     'ENGINE': 'django.db.backends.postgresql',   # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t87" class="pln"><span class="n"><a href="#t87">87</a></span><span class="t">    <span class="com">#     'NAME': 'pur_beurre_p8',             # Nom de la base de donn&#233;es</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t88" class="pln"><span class="n"><a href="#t88">88</a></span><span class="t">    <span class="com">#     'USER': 'postgres',</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t89" class="pln"><span class="n"><a href="#t89">89</a></span><span class="t">    <span class="com">#     'PASSWORD': 'mvtm,js1np',</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t90" class="pln"><span class="n"><a href="#t90">90</a></span><span class="t">    <span class="com">#     'HOST': '127.0.0.1',                    # Utile si votre base de donn&#233;es est sur une autre machine</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t91" class="pln"><span class="n"><a href="#t91">91</a></span><span class="t">    <span class="com">#     'PORT': '5433',                         # ... et si elle utilise un autre port que celui par d&#233;faut</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t92" class="pln"><span class="n"><a href="#t92">92</a></span><span class="t">    <span class="com"># },</span>&nbsp;</span><span class="r"></span></p>
     <p id="t93" class="pln"><span class="n"><a href="#t93">93</a></span><span class="t"><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t94" class="pln"><span class="n"><a href="#t94">94</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t95" class="pln"><span class="n"><a href="#t95">95</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t96" class="pln"><span class="n"><a href="#t96">96</a></span><span class="t"><span class="com"># Password validation</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t97" class="pln"><span class="n"><a href="#t97">97</a></span><span class="t"><span class="com"># https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t98" class="pln"><span class="n"><a href="#t98">98</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t99" class="run"><span class="n"><a href="#t99">99</a></span><span class="t"><span class="nam">AUTH_PASSWORD_VALIDATORS</span> <span class="op">=</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t100" class="pln"><span class="n"><a href="#t100">100</a></span><span class="t">    <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t101" class="pln"><span class="n"><a href="#t101">101</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t102" class="pln"><span class="n"><a href="#t102">102</a></span><span class="t">    <span class="op">}</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t103" class="pln"><span class="n"><a href="#t103">103</a></span><span class="t">    <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t104" class="pln"><span class="n"><a href="#t104">104</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'django.contrib.auth.password_validation.MinimumLengthValidator'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t105" class="pln"><span class="n"><a href="#t105">105</a></span><span class="t">    <span class="op">}</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t106" class="pln"><span class="n"><a href="#t106">106</a></span><span class="t">    <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t107" class="pln"><span class="n"><a href="#t107">107</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'django.contrib.auth.password_validation.CommonPasswordValidator'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t108" class="pln"><span class="n"><a href="#t108">108</a></span><span class="t">    <span class="op">}</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t109" class="pln"><span class="n"><a href="#t109">109</a></span><span class="t">    <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t110" class="pln"><span class="n"><a href="#t110">110</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'django.contrib.auth.password_validation.NumericPasswordValidator'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t111" class="pln"><span class="n"><a href="#t111">111</a></span><span class="t">    <span class="op">}</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t112" class="pln"><span class="n"><a href="#t112">112</a></span><span class="t"><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t113" class="pln"><span class="n"><a href="#t113">113</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t114" class="pln"><span class="n"><a href="#t114">114</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t115" class="pln"><span class="n"><a href="#t115">115</a></span><span class="t"><span class="com"># Internationalization</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t116" class="pln"><span class="n"><a href="#t116">116</a></span><span class="t"><span class="com"># https://docs.djangoproject.com/en/3.0/topics/i18n/</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t94" class="run"><span class="n"><a href="#t94">94</a></span><span class="t"><span class="nam">DATABASES</span><span class="op">[</span><span class="str">'default'</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t95" class="pln"><span class="n"><a href="#t95">95</a></span><span class="t">    <span class="str">'ENGINE'</span><span class="op">:</span> <span class="str">'django.db.backends.sqlite3'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t96" class="pln"><span class="n"><a href="#t96">96</a></span><span class="t">    <span class="com"># Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t97" class="pln"><span class="n"><a href="#t97">97</a></span><span class="t">    <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'pur_beurre/db.sqlite3'</span><span class="op">,</span>  <span class="com"># Nom de la base de donn&#233;es</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t98" class="pln"><span class="n"><a href="#t98">98</a></span><span class="t"><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t99" class="pln"><span class="n"><a href="#t99">99</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t100" class="pln"><span class="n"><a href="#t100">100</a></span><span class="t"><span class="com"># Password validation</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t101" class="pln"><span class="n"><a href="#t101">101</a></span><span class="t"><span class="com"># https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t102" class="pln"><span class="n"><a href="#t102">102</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t103" class="run"><span class="n"><a href="#t103">103</a></span><span class="t"><span class="nam">AUTH_PASSWORD_VALIDATORS</span> <span class="op">=</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t104" class="pln"><span class="n"><a href="#t104">104</a></span><span class="t">    <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t105" class="pln"><span class="n"><a href="#t105">105</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t106" class="pln"><span class="n"><a href="#t106">106</a></span><span class="t">    <span class="op">}</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t107" class="pln"><span class="n"><a href="#t107">107</a></span><span class="t">    <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t108" class="pln"><span class="n"><a href="#t108">108</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'django.contrib.auth.password_validation.MinimumLengthValidator'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t109" class="pln"><span class="n"><a href="#t109">109</a></span><span class="t">    <span class="op">}</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t110" class="pln"><span class="n"><a href="#t110">110</a></span><span class="t">    <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t111" class="pln"><span class="n"><a href="#t111">111</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'django.contrib.auth.password_validation.CommonPasswordValidator'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t112" class="pln"><span class="n"><a href="#t112">112</a></span><span class="t">    <span class="op">}</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t113" class="pln"><span class="n"><a href="#t113">113</a></span><span class="t">    <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t114" class="pln"><span class="n"><a href="#t114">114</a></span><span class="t">        <span class="str">'NAME'</span><span class="op">:</span> <span class="str">'django.contrib.auth.password_validation.NumericPasswordValidator'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t115" class="pln"><span class="n"><a href="#t115">115</a></span><span class="t">    <span class="op">}</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t116" class="pln"><span class="n"><a href="#t116">116</a></span><span class="t"><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t117" class="pln"><span class="n"><a href="#t117">117</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t118" class="run"><span class="n"><a href="#t118">118</a></span><span class="t"><span class="nam">LANGUAGE_CODE</span> <span class="op">=</span> <span class="str">'fr-FR'</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t119" class="pln"><span class="n"><a href="#t119">119</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t120" class="run"><span class="n"><a href="#t120">120</a></span><span class="t"><span class="nam">TIME_ZONE</span> <span class="op">=</span> <span class="str">'UTC'</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t118" class="pln"><span class="n"><a href="#t118">118</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t119" class="pln"><span class="n"><a href="#t119">119</a></span><span class="t"><span class="com"># Internationalization</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t120" class="pln"><span class="n"><a href="#t120">120</a></span><span class="t"><span class="com"># https://docs.djangoproject.com/en/3.0/topics/i18n/</span>&nbsp;</span><span class="r"></span></p>
     <p id="t121" class="pln"><span class="n"><a href="#t121">121</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t122" class="run"><span class="n"><a href="#t122">122</a></span><span class="t"><span class="nam">USE_I18N</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t122" class="run"><span class="n"><a href="#t122">122</a></span><span class="t"><span class="nam">LANGUAGE_CODE</span> <span class="op">=</span> <span class="str">'fr-FR'</span>&nbsp;</span><span class="r"></span></p>
     <p id="t123" class="pln"><span class="n"><a href="#t123">123</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t124" class="run"><span class="n"><a href="#t124">124</a></span><span class="t"><span class="nam">USE_L10N</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t124" class="run"><span class="n"><a href="#t124">124</a></span><span class="t"><span class="nam">TIME_ZONE</span> <span class="op">=</span> <span class="str">'UTC'</span>&nbsp;</span><span class="r"></span></p>
     <p id="t125" class="pln"><span class="n"><a href="#t125">125</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t126" class="run"><span class="n"><a href="#t126">126</a></span><span class="t"><span class="nam">USE_TZ</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t126" class="run"><span class="n"><a href="#t126">126</a></span><span class="t"><span class="nam">USE_I18N</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
     <p id="t127" class="pln"><span class="n"><a href="#t127">127</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t128" class="pln"><span class="n"><a href="#t128">128</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t129" class="pln"><span class="n"><a href="#t129">129</a></span><span class="t"><span class="com"># Static files (CSS, JavaScript, Images)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t130" class="pln"><span class="n"><a href="#t130">130</a></span><span class="t"><span class="com"># https://docs.djangoproject.com/en/3.0/howto/static-files/</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t128" class="run"><span class="n"><a href="#t128">128</a></span><span class="t"><span class="nam">USE_L10N</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t129" class="pln"><span class="n"><a href="#t129">129</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t130" class="run"><span class="n"><a href="#t130">130</a></span><span class="t"><span class="nam">USE_TZ</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
     <p id="t131" class="pln"><span class="n"><a href="#t131">131</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t132" class="run"><span class="n"><a href="#t132">132</a></span><span class="t"><span class="nam">STATIC_URL</span> <span class="op">=</span> <span class="str">'/static/'</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t133" class="run"><span class="n"><a href="#t133">133</a></span><span class="t"><span class="nam">STATICFILES_DIRS</span> <span class="op">=</span> <span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t134" class="pln"><span class="n"><a href="#t134">134</a></span><span class="t">    <span class="nam">os</span><span class="op">.</span><span class="nam">path</span><span class="op">.</span><span class="nam">join</span><span class="op">(</span><span class="nam">BASE_DIR</span><span class="op">,</span> <span class="str">'static'</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t135" class="pln"><span class="n"><a href="#t135">135</a></span><span class="t"><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t132" class="pln"><span class="n"><a href="#t132">132</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t133" class="pln"><span class="n"><a href="#t133">133</a></span><span class="t"><span class="com"># Static files (CSS, JavaScript, Images)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t134" class="pln"><span class="n"><a href="#t134">134</a></span><span class="t"><span class="com"># https://docs.djangoproject.com/en/3.0/howto/static-files/</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t135" class="pln"><span class="n"><a href="#t135">135</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t136" class="run"><span class="n"><a href="#t136">136</a></span><span class="t"><span class="nam">STATIC_URL</span> <span class="op">=</span> <span class="str">'/static/'</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t137" class="run"><span class="n"><a href="#t137">137</a></span><span class="t"><span class="nam">STATICFILES_DIRS</span> <span class="op">=</span> <span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t138" class="pln"><span class="n"><a href="#t138">138</a></span><span class="t">    <span class="nam">os</span><span class="op">.</span><span class="nam">path</span><span class="op">.</span><span class="nam">join</span><span class="op">(</span><span class="nam">BASE_DIR</span><span class="op">,</span> <span class="str">'static'</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t139" class="pln"><span class="n"><a href="#t139">139</a></span><span class="t"><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
         <p>
-            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.1</a>,
-            created at 2020-07-01 12:58
+            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.2</a>,
+            created at 2020-07-12 14:39
         </p>
     </div>
 </div>
