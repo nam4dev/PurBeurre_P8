@@ -21,21 +21,47 @@ class TestCommand(TestCase):
             "img": "http://img.com",
             "nutrition_img": 1
         }
+        self.products = [
+            {
+                'url': self.product['link'],
+                'product_name_fr': self.product['name'],
+                'nutrition_grades': self.product['nutriscore'],
+                'countries': "france",
+                'image_url': self.product['img'],
+                'image_nutrition_small_url': self.product['nutrition_img']
+            }
+        ]
+        self.tags = [
+            {
+                'name': self.category.name,
+                'products': 87932,
+                'url': 'fake url'
+            }
+        ]
+        i = 0
+        while i < 16:
+            self.tags.append(
+                {
+                    'name': f'{self.category.name}{i}',
+                    'products': 87932,
+                    'url': 'fake url'
+                }
+            )
+            i += 1
+
+    def _setup_mocked_response(self, response, **options):
+        magic = options.pop('magic', False)
+        if magic:
+            mocked_response = mock.MagicMock(**options)
+        else:
+            mocked_response = mock.Mock(**options)
+        mocked_response.json.return_value = response
+        return mocked_response
 
     def test_sort_and_register_products(self):
-        products = [
-                {
-                    'url': self.product['link'],
-                    'product_name_fr': self.product['name'],
-                    'nutrition_grades': self.product['nutriscore'],
-                    'countries': "france",
-                    'image_url': self.product['img'],
-                    'image_nutrition_small_url': self.product['nutrition_img']
-                }
-            ]
         # calling function
         result = self.command.sort_and_register_products(
-            products,
+            self.products,
             self.category,
             nb_prod=0
         )
@@ -43,28 +69,58 @@ class TestCommand(TestCase):
         self.assertEqual(result, 1)
         self.assertEqual(Product.objects.all().exists(), True)
 
-    # @mock.patch('sort_and_register_products')
-    # @mock.patch('requests.get')
-    # def test_get_products(self):
-    #     pass
+    @mock.patch(
+        'purbeurre_off.management.commands.off_db.Command.sort_and_register_products')
+    @mock.patch('requests.get')
+    def test_get_products(
+            self,
+            mocked_requests_get,
+            mocked_sort_and_register_products
+    ):
+        # mocking
+        expected_result = {
+            "products": self.products
+        }
+        mocked_response = self._setup_mocked_response(expected_result)
+        mocked_requests_get.return_value = mocked_response
+        mocked_sort_and_register_products.return_value = 1
 
-    # @mock.patch('get_products')
-    # def test_get_categories(self):
-    #     pass
-    #
-    # def _setup_mocked_response(self, response, ok_status=True):
-    #     mocked_response = mock.Mock(ok=ok_status)
-    #     mocked_response.json.return_value = response
-    #     return mocked_response
-    #
-    # @mock.patch('get_categories')
-    # @mock.patch('requests.get')
-    # def test_handle(
-    #         self,
-    #         mocked_request_get,
-    #         mocked_categories_json_get,
-    #         mocked_get_categories
-    # ):
-    #     # mock request api et teste insertiopn en DB, mas ça c'est deja teste qd on teste les mmodels des prods ?
-    #     self.command
-    #     pass
+        # calling function
+        self.command.get_products(self.category, 'fake_url', 1)
+
+        # expected result
+        mocked_requests_get.assert_called_once_with('fake_url/1.json')
+        mocked_sort_and_register_products.assert_called_once_with(
+            expected_result['products'],
+            self.category,
+            0
+        )
+
+    @mock.patch(
+        'purbeurre_off.management.commands.off_db.Command.get_products')
+    def test_get_categories(self, mocked_get_products):
+
+        # calling function
+        self.command.get_categories(self.tags)
+
+        # expected result
+        mocked_get_products.assert_called()
+        mocked_get_products.assert_any_call(self.category, 'fake_url', 87932)
+        self.assertEqual(Category.objects.all().exists(), True)
+
+    @mock.patch('purbeurre_off.management.commands.off_db.Command.get_categories')
+    @mock.patch('requests.get')
+    def test_handle(self, mocked_requests_get, mocked_get_categories):
+        # mocking
+        expected_result = {
+            "tags": self.tags
+        }
+        mocked_response = self._setup_mocked_response(expected_result)
+        mocked_requests_get.return_value = mocked_response
+        # calling function
+        self.command.handle()
+
+        # expected result
+        mocked_requests_get.assert_called_once_with('https://fr.openfoodfacts.org/categories&json=1')
+        mocked_get_categories.assert_called_once_with(self.tags)
+        self.assertEqual(Product.objects.all().exists(), False)

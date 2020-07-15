@@ -15,9 +15,9 @@ class Command(BaseCommand):
         api_url = 'https://fr.openfoodfacts.org/categories&json=1'
         request_categories = requests.get(api_url)
         categories_json = request_categories.json()
-        data_tags = categories_json.get('tags')
+        tags = categories_json.get('tags')
         # make some sorting and get products
-        self.get_categories(data_tags)
+        self.get_categories(tags)
         self.stdout.write(self.style.SUCCESS('DB successfully updated'))
 
     def sort_and_register_products(self, products, category, nb_prod):
@@ -73,7 +73,7 @@ class Command(BaseCommand):
         # 20 products / page
         needed_pages = products_number / 20
         nb_prod = 0
-        while (pages_count < needed_pages) and (nb_prod < 500):
+        while (pages_count < (needed_pages + 1)) and (nb_prod < 500):
             # we request pages one by one, and we limit number of products for Heroku DB size
             request_products = requests.get(f'{url}/{str(pages_count)}.json')
             pages_count += 1
@@ -83,25 +83,25 @@ class Command(BaseCommand):
 
         print(f'500 products inserted for {category.name} -> break')
 
-    def get_categories(self, data_tags):
+    def get_categories(self, tags):
         """
         Checking basic information from data_tags, insert categories into database
         and calling get_products to get products of the selected categories
         from the API.
-        :param data_tags: categories information retrieved from the API.
+        :param tags: categories information retrieved from the API.
         """
 
         category_selected = 0
-        for idx, data in enumerate(data_tags):
-            name = data['name']
-            products_number = data['products']
+        for idx, tag in enumerate(tags):
+            name = tag['name']
+            products_number = tag['products']
             # for a useful category, we want at least 1000 products
             if products_number > 1000:
                 if ":" not in name and "-" not in name:
                     # save category in DB
                     category, _ = Category.objects.get_or_create(name=name)
                     # get products for this category
-                    self.get_products(category, data['url'], products_number)
+                    self.get_products(category, tag['url'], products_number)
                     category_selected += 1
 
             if category_selected == 15:

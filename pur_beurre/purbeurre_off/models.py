@@ -21,7 +21,7 @@ class ProductManager(models.Manager):
         if query:
             # looking for the product
             products_found = self.filter(
-                #models.Q(name__iexact=query) | models.Q(name__icontains=query)
+                # models.Q(name__iexact=query) | models.Q(name__icontains=query)
                 name__icontains=query
             )
             if products_found:
