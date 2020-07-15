@@ -25,10 +25,8 @@ class ProductManager(models.Manager):
                 name__icontains=query
             )
             if products_found:
-                product_found = products_found.filter(name__iexact=query)
-                if product_found.count() > 1:
-                    product_found = product_found.first()
-                elif product_found.count() == 0:
+                product_found = products_found.filter(name__iexact=query).first()
+                if not product_found:
                     product_found = products_found.first()
                 substitutes = products_found.filter(
                     category=product_found.category,

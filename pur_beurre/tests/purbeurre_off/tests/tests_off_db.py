@@ -104,8 +104,7 @@ class TestCommand(TestCase):
         self.command.get_categories(self.tags)
 
         # expected result
-        mocked_get_products.assert_called()
-        mocked_get_products.assert_any_call(self.category, 'fake_url', 87932)
+        self.assertEqual(mocked_get_products.call_count, 15)
         self.assertEqual(Category.objects.all().exists(), True)
 
     @mock.patch('purbeurre_off.management.commands.off_db.Command.get_categories')
