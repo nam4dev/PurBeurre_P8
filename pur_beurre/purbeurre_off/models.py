@@ -5,16 +5,14 @@ class ProductManager(models.Manager):
 
     def search(self, query):
         """
-        Search the first product which matches the given query and associated substitutes
+        Searches the products matching the given query.
+        The first product found / with exact name will be the product.
+        The other products found will be the substitutes,
+        if their nutriscore is not worse than the product nutriscore.
 
-        Notes:
-            Returns the substitutes as well if given parameter is set
+        :param query: The query terms.
 
-        Args:
-            query (str): The query terms
-
-        Returns:
-            tuple[list[Product], Product]: The first matched product with or without substitutes
+        :return substitutes, product_found: list of substitutes, product found.
         """
         substitutes = []
         product_found = None
@@ -44,6 +42,7 @@ class Category(models.Model):
     Class building categories and managing their interactions
     with other objects.
     """
+
     class Meta:
         verbose_name_plural = 'categories'
         app_label = 'purbeurre_off'

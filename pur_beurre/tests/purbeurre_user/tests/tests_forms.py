@@ -2,14 +2,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase, Client
 
-from purbeurre_user.forms import ConnectionForm, AccountForm
+from purbeurre_user.forms import AccountForm
 
 
-# Create your tests here.
 class TestUserForms(TestCase):
     """
     User app forms test.
     """
+
     def setUp(self):
         self.username = 'moi@gmail.com'
         self.password = 'moi'
@@ -23,7 +23,9 @@ class TestUserForms(TestCase):
         }
 
     def test_user_account_form_same_username(self):
+        # if the user tries to create an account with an already used username
         self.assertRaises(ValidationError, AccountForm.clean_username, self)
 
     def test_user_account_form_wrong_confirm_pwd(self):
+        # if the confirmation password is different from the first password.
         self.assertRaises(ValidationError, AccountForm.clean_pwd_confirm, self)

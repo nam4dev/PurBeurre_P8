@@ -7,7 +7,6 @@ from purbeurre_favorites.models import FavoriteManager
 from purbeurre_favorites.models import Product
 
 
-# Create your tests here.
 class TestFavorite(TestCase):
     """
     Tests favorite creation in DB.
@@ -33,7 +32,3 @@ class TestFavorite(TestCase):
 
     def test_favorite_objects(self):
         self.assertIsInstance(Favorite.objects, FavoriteManager)
-
-
-class TestFavoriteIntegration(TestCase):
-    pass

@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'purbeurre_off',
-    'purbeurre_home',
+    'purbeurre_core',
     'purbeurre_results',
     'purbeurre_user',
     'purbeurre_favorites'
@@ -60,7 +60,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # Cette ligne ajoute le dossier templates/ à la racine du projet
             os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
@@ -83,18 +82,17 @@ WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',   # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.
-        'NAME': 'pur_beurre_p8',             # Nom de la base de données
+        'ENGINE': 'django.db.backends.postgresql',   # 'postgresql', 'mysql', 'sqlite3', 'oracle'.
+        'NAME': 'pur_beurre_p8',
         'USER': 'postgres',
         'PASSWORD': 'mvtm,js1np',
-        'HOST': '127.0.0.1',                    # Utile si votre base de données est sur une autre machine
-        'PORT': '5433',                         # ... et si elle utilise un autre port que celui par défaut
+        'HOST': '127.0.0.1',
+        'PORT': '5433',
     },
 }
 # DATABASES['default'] = {
 #     'ENGINE': 'django.db.backends.sqlite3',
-#     # Backends disponibles : 'postgresql', 'mysql', 'sqlite3' et 'oracle'.
-#     'NAME': 'pur_beurre/db.sqlite3',  # Nom de la base de données
+#     'NAME': 'pur_beurre/db.sqlite3',
 # }
 
 # Password validation

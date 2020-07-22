@@ -24,6 +24,7 @@ class Command(BaseCommand):
         """
         Sorting products from the API to keep only those with useful information.
         And inserting selected products in the database.
+
         :param products: list of product from the API to be registered in the DB.
         :param category: the category instance to search for products in the API.
         :param nb_prod: number of products already registered in the DB.
@@ -37,6 +38,7 @@ class Command(BaseCommand):
             country = product.get('countries')
             img = product.get('image_url')
             nutrition_img = product.get('image_nutrition_small_url')
+            # if the product given by the API contains all the information we need
             if all([
                 url,
                 name and len(name) <= 100,
@@ -64,6 +66,7 @@ class Command(BaseCommand):
         Requesting products to the API, and then
         calling sort_and_register_products to sort and
         insert in the database retrieved products.
+
         :param category: the category instance to search for products in the API.
         :param url: url of the category
         :param products_number: number of products contained in this category.
@@ -88,6 +91,7 @@ class Command(BaseCommand):
         Checking basic information from data_tags, insert categories into database
         and calling get_products to get products of the selected categories
         from the API.
+
         :param tags: categories information retrieved from the API.
         """
 

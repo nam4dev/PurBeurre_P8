@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.contrib.auth import login
 from django.test import TestCase, Client
 from django.urls import reverse
 
@@ -7,11 +6,11 @@ from purbeurre_favorites.models import Favorite
 from purbeurre_off.models import Product, Category
 
 
-# Create your tests here.
 class TestFavoritesViews(TestCase):
     """
     Favorites app views test.
     """
+
     def setUp(self):
         self.username = 'moi@gmail.com'
         self.password = 'moi'
@@ -33,11 +32,17 @@ class TestFavoritesViews(TestCase):
         """
         Getting the favorites page should return a http code = 200.
         """
+
         response = self.client.get(reverse('favorites'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('purbeurre_favorites/favorites.html')
 
     def test_favorites_save(self):
+        """
+        After having saved a product,
+        it should be found in the user's favorites
+        """
+
         response = self.client.get(reverse('save'), {'product': self.product.id})
         self.assertEqual(response.status_code, 302)
         self.assertTemplateUsed('purbeurre_favorites/favorites.html')
@@ -45,6 +50,11 @@ class TestFavoritesViews(TestCase):
         self.assertEqual(prod_saved, self.favorite)
 
     def test_favorites_remove(self):
+        """
+        After having removed a product,
+        it should not be found in the user's favorites
+        """
+
         response = self.client.post(reverse('remove',), {'product': self.product.id})
         self.assertEqual(response.status_code, 302)
         self.assertTemplateUsed('purbeurre_favorites/favorites.html')

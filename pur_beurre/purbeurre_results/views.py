@@ -16,5 +16,6 @@ def results(request):
 
 
 def detail(request, product_id=None):
+    # detailed page of the product.
     product = Product.objects.get(id=product_id)
     return render(request, 'purbeurre_results/detail.html', dict(product=product))

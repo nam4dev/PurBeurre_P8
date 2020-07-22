@@ -1,12 +1,8 @@
-from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.db import IntegrityError
 from .forms import ConnectionForm, AccountForm
 
-
-# Create your views here.
 
 def connection(request):
     error = False
@@ -15,10 +11,13 @@ def connection(request):
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
-            user = authenticate(username=username, password=password)  # Nous vérifions si les données sont correctes
-            if user:  # Si l'objet renvoyé n'est pas None
-                login(request, user)  # nous connectons l'utilisateur
-            else:  # sinon une erreur sera affichée
+            # Checking identification data
+            user = authenticate(username=username, password=password)
+            if user:
+                # Connecting user
+                login(request, user)
+            else:
+                # prompts an error
                 error = True
     else:
         form = ConnectionForm()
@@ -33,7 +32,7 @@ def my_account(request):
 
 def disconnection(request):
     logout(request)
-    return render(request, 'purbeurre_home/home.html', locals())
+    return render(request, 'purbeurre_core/home.html', locals())
 
 
 def create_account(request):
@@ -42,16 +41,20 @@ def create_account(request):
     if request.method == "POST":
         form = AccountForm(request.POST)
         if form.is_valid():
+            # checking form data
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             first_name = form.cleaned_data["first_name"]
-            user = User.objects.create_user(username, username, password)  # Création utilisateur
+            # Creating user
+            user = User.objects.create_user(username, username, password)
             user.first_name = first_name
             user.save()
-            if user:  # Si l'objet renvoyé n'est pas None
-                login(request, user)  # nous connectons l'utilisateur
+            if user:
+                # Connecting user and redirecting to the user's account page.
+                login(request, user)
                 return redirect('my_account')
-            else: # sinon une erreur sera affichée
+            # prompts an error
+            else:
                 error = True
     else:
         form = AccountForm()
