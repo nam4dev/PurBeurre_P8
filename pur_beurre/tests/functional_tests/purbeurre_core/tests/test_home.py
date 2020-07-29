@@ -6,7 +6,7 @@ from tests.functional_tests.func_tests import GeneralTestCase
 class HomeTestCase(GeneralTestCase):
 
     def setUp(self):
-        GeneralTestCase.setUp(self)
+        super().setUp()
         selenium = self.selenium
         # Opening the link we want to test
         selenium.get('http://127.0.0.1:8000/home')
@@ -24,8 +24,9 @@ class HomeTestCase(GeneralTestCase):
         self.search.send_keys('pain')
 
         # submitting the form
-        self.search.send_keys(Keys.RETURN)
-        self.wait
+        self.search.send_keys(Keys.ENTER)
+        self.wait.until_not(
+            lambda driver: self.selenium.current_url == 'http://127.0.0.1:8000/home')
 
         # check the returned result
         self.assertEqual(
@@ -33,7 +34,7 @@ class HomeTestCase(GeneralTestCase):
             'http://127.0.0.1:8000/results/results?query=pain',
             "urlfound: " + self.selenium.current_url
         )
-        assert 'Vous pouvez remplacer cet aliment par :' in self.selenium.page_source
+        assert 'remplacer cet aliment' in self.selenium.page_source
 
     def test_search_from_navbar_prod_not_found(self):
         """
@@ -45,7 +46,8 @@ class HomeTestCase(GeneralTestCase):
 
         # submitting the form
         self.search.send_keys(Keys.RETURN)
-        self.wait
+        self.wait.until_not(
+            lambda driver: self.selenium.current_url == 'http://127.0.0.1:8000/home')
 
         # check the returned result
         self.assertEqual(
@@ -65,8 +67,8 @@ class HomeTestCase(GeneralTestCase):
 
         # submitting the form
         self.submit.click()
-        self.wait
-
+        self.wait.until_not(
+            lambda driver: self.selenium.current_url == 'http://127.0.0.1:8000/home')
         # check the returned result
         self.assertEqual(
             self.selenium.current_url,
@@ -85,8 +87,8 @@ class HomeTestCase(GeneralTestCase):
 
         # submitting the form
         self.submit.click()
-        self.wait
-
+        self.wait.until_not(
+            lambda driver: self.selenium.current_url == 'http://127.0.0.1:8000/home')
         # check the returned result
         self.assertEqual(
             self.selenium.current_url,

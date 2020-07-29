@@ -6,7 +6,7 @@ from tests.functional_tests.func_tests import GeneralTestCase
 class FavoritesTestCase(GeneralTestCase):
 
     def setUp(self):
-        GeneralTestCase.setUp(self)
+        super().setUp()
         selenium = self.selenium
         # find the page element
         self.detail = selenium.find_element_by_xpath('//label[@for="id_username"]')  ###
@@ -19,7 +19,7 @@ class FavoritesTestCase(GeneralTestCase):
         """
 
         # Opening the link we want to test
-        self.selenium.get('http://127.0.0.1:8000/results/***')
+        self.selenium.get('http://127.0.0.1:8000/results/results')
 #         # Fill the form with data
 #         self.id_username.send_keys('create_account@selenium.com')
 #         self.id_password.send_keys('create_account')

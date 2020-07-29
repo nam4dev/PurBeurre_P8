@@ -29,7 +29,7 @@ class GeneralTestCase(LiveServerTestCase):
         super().setUpClass()
         profile = webdriver.FirefoxProfile()
         cls.selenium = webdriver.Firefox(firefox_profile=profile, executable_path=r'.\tests\functional_tests\geckodriver.exe')
-        cls.wait = ui.WebDriverWait(cls.selenium, 3)
+        cls.wait = ui.WebDriverWait(cls.selenium, 1)
 
 
     @classmethod

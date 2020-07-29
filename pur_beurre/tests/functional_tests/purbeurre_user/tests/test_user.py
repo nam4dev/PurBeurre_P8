@@ -51,8 +51,8 @@ class AccountTestCase(GeneralTestCase):
 
         # submitting the form
         submit.click()
-        self.wait
-
+        self.wait.until_not(
+            lambda driver: self.selenium.current_url == self.create_url)
         # check the returned result
         self.assertEqual(
             self.selenium.current_url,
@@ -131,8 +131,8 @@ class AccountTestCase(GeneralTestCase):
 
         # submitting the form
         submit.click()
-        self.wait
-
+        self.wait.until_not(
+            lambda driver: self.selenium.current_url == self.connect_url)
         # check the returned result
         assert 'Vous êtes connecté(e), Sélénium !' in self.selenium.page_source
         self.assertEqual(
