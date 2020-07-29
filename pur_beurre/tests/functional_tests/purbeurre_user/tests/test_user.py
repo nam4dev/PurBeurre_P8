@@ -1,5 +1,6 @@
 from django.conf import settings
 from selenium.webdriver.common.keys import Keys
+import selenium.webdriver.support.ui as ui
 
 from tests.functional_tests.func_tests import GeneralTestCase
 
@@ -8,33 +9,63 @@ class AccountTestCase(GeneralTestCase):
 
     def setUp(self):
         super().setUp()
-        selenium = self.selenium
-        # find the form element
-        self.id_username = selenium.find_element_by_xpath('//label[@for="id_username"]')
-        self.id_password = selenium.find_element_by_xpath('//label[@for="id_password"]')
-        self.id_pwd_confirm = selenium.find_element_by_xpath('//label[@for="id_pwd_confirm"]')
-        self.id_first_name = selenium.find_element_by_xpath('//label[@for="id_first_name"]')
 
-        self.submit = selenium.find_element_by_by_xpath('//input[@type="submit"]')
+        self.create_url = 'http://127.0.0.1:8000/user/create_account?'
+        self.connect_url = 'http://127.0.0.1:8000/user/connection'
+
+        self.wait = ui.WebDriverWait(self.selenium, 1000)
+
+    def account_basis(self, url):
+        """
+        Common settings depending on the page we want (create account or connection).
+
+        :param url: url of the page we want.
+        :return username, password, pwd_confirm, first_name, submit: form elements found.
+        when using connection url, pwd_confirm and first_name not found
+        -> replaced by an empty string.
+        """
+
+        # Opening the link we want to test
+        self.selenium.get(url)
+
+        # find the form element
+        username = self.selenium.find_element_by_name("username")
+        password = self.selenium.find_element_by_name("password")
+        try:
+            pwd_confirm = self.selenium.find_element_by_name("pwd_confirm")
+            first_name = self.selenium.find_element_by_name("first_name")
+        except:
+            pwd_confirm = ""
+            first_name = ""
+
+        submit = self.selenium.find_element_by_xpath('//input[@type="submit"]')
+
+        return username, password, pwd_confirm, first_name, submit
 
     def test_create_account_ok(self):
         """
         Tests the user account creation with a valid form.
         """
 
-        # Opening the link we want to test
-        self.selenium.get('/user/create_account?')
+        username, password, pwd_confirm, first_name, submit = self.account_basis(self.create_url)
+
         # Fill the form with data
-        self.id_username.send_keys('create_account@selenium.com')
-        self.id_password.send_keys('create_account')
-        self.id_pwd_confirm.send_keys('create_account')
-        self.id_first_name.send_keys('createaccount')
+        username.send_keys('create_account3@selenium.com')
+        password.send_keys('create_account')
+        pwd_confirm.send_keys('create_account')
+        first_name.send_keys('createaccount')
 
         # submitting the form
-        self.submit.send_keys(Keys.RETURN)
+        submit.click()
+
+        import time
+        time.sleep(3)
 
         # check the returned result
-        assert 'AHOY CREATEACCOUNT !' in self.selenium.page_source
+        # self.wait.until(lambda driver: self.selenium.find_element_by_tag_name('body'))
+        # assert "AHOY CREATEACCOUNT !" in self.selenium.page_source
+        print(self.selenium.current_url)
+        self.assertEqual(self.selenium.current_url, 'http://127.0.0.1:8000/user/my_account', "urlfound: " + self.selenium.current_url)
 
     def test_create_account_diff_pwd(self):
         """
@@ -42,16 +73,16 @@ class AccountTestCase(GeneralTestCase):
         when the confirmation password is different from the first password.
         """
 
-        # Opening the link we want to test
-        self.selenium.get('/user/create_account?')
+        username, password, pwd_confirm, first_name, submit = self.account_basis(self.create_url)
+
         # Fill the form with data
-        self.id_username.send_keys('create_account_diff_pwd@selenium.com')
-        self.id_password.send_keys('create_account_diff_pwd')
-        self.id_pwd_confirm.send_keys('not_selenium_test')
-        self.id_first_name.send_keys('createaccountdiffpwd')
+        username.send_keys('create_account_diff_pwd@selenium.com')
+        password.send_keys('create_account_diff_pwd')
+        pwd_confirm.send_keys('not_selenium_test')
+        first_name.send_keys('createaccountdiffpwd')
 
         # submitting the form
-        self.submit.send_keys(Keys.RETURN)
+        submit.send_keys(Keys.RETURN)
 
         # check the returned result
         assert 'veuillez entrer un mot de passe de confirmation identique au mot de passe' \
@@ -62,14 +93,14 @@ class AccountTestCase(GeneralTestCase):
         Tests the user connection with a valid form.
         """
 
-        # Opening the link we want to test
-        self.selenium.get('/user/connection')
+        username, password, pwd_confirm, first_name, submit = self.account_basis(self.connect_url)
+
         # Fill the form with data
-        self.id_username.send_keys('connection@selenium.com')
-        self.id_password.send_keys('connection')
+        username.send_keys('connection@selenium.com')
+        password.send_keys('connection')
 
         # submitting the form
-        self.submit.send_keys(Keys.RETURN)
+        submit.send_keys(Keys.RETURN)
 
         # check the returned result
         assert 'Vous êtes connecté(e), Sélénium!' in self.selenium.page_source
@@ -79,14 +110,14 @@ class AccountTestCase(GeneralTestCase):
         Tests the user connection with a wrong password.
         """
 
-        # Opening the link we want to test
-        self.selenium.get('/user/connection')
+        username, password, pwd_confirm, first_name, submit = self.account_basis(self.connect_url)
+
         # Fill the form with data
-        self.id_username.send_keys('connection@selenium.com')
-        self.id_password.send_keys('not_selenium_test')
+        username.send_keys('connection@selenium.com')
+        password.send_keys('not_selenium_test')
 
         # submitting the form
-        self.submit.send_keys(Keys.RETURN)
+        submit.send_keys(Keys.RETURN)
 
         # check the returned result
         assert 'Utilisateur inconnu ou mauvais de mot de passe.' in self.selenium.page_source
@@ -96,14 +127,14 @@ class AccountTestCase(GeneralTestCase):
         Tests the user connection with a wrong password.
         """
 
-        # Opening the link we want to test
-        self.selenium.get('/user/connection')
+        username, password, pwd_confirm, first_name, submit = self.account_basis(self.connect_url)
+
         # Fill the form with data
-        self.id_username.send_keys('user_not_known@test.com')
-        self.id_password.send_keys('selenium_test')
+        username.send_keys('user_not_known@test.com')
+        password.send_keys('selenium_test')
 
         # submitting the form
-        self.submit.send_keys(Keys.RETURN)
+        submit.send_keys(Keys.RETURN)
 
         # check the returned result
         assert 'Utilisateur inconnu ou mauvais de mot de passe.' in self.selenium.page_source

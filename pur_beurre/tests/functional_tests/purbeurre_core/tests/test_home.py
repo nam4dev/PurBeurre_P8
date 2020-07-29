@@ -9,7 +9,7 @@ class HomeTestCase(GeneralTestCase):
         GeneralTestCase.setUp(self)
         selenium = self.selenium
         # Opening the link we want to test
-        selenium.get('/home')
+        selenium.get('http://127.0.0.1:8000/home')
         # find the form element a completer
         self.search = selenium.find_element_by_xpath('//input[@placeholder="Chercher"]')
         self.prod = selenium.find_element_by_xpath('//input[@placeholder="Produit"]')
@@ -27,7 +27,7 @@ class HomeTestCase(GeneralTestCase):
         self.search.send_keys(Keys.RETURN)
 
         # check the returned result
-        assert 'a remplir' in self.selenium.page_source
+        assert 'Vous pouvez remplacer cet aliment par :' in self.selenium.page_source
 
     def test_search_from_navbar_prod_not_found(self):
         """
@@ -41,7 +41,7 @@ class HomeTestCase(GeneralTestCase):
         self.search.send_keys(Keys.RETURN)
 
         # check the returned result
-        assert 'a remplir' in self.selenium.page_source
+        assert 'Vous pouvez effectuer une nouvelle recherche.' in self.selenium.page_source
 
     def test_search_from_homepage_ok(self):
         """
@@ -55,7 +55,7 @@ class HomeTestCase(GeneralTestCase):
         self.submit.send_keys(Keys.RETURN)
 
         # check the returned result
-        assert 'a remplir' in self.selenium.page_source
+        assert 'Vous pouvez remplacer cet aliment par :' in self.selenium.page_source
 
     def test_search_from_homepage_prod_not_found(self):
         """
@@ -69,4 +69,4 @@ class HomeTestCase(GeneralTestCase):
         self.submit.send_keys(Keys.RETURN)
 
         # check the returned result
-        assert 'a remplir' in self.selenium.page_source
+        assert 'Vous pouvez effectuer une nouvelle recherche.' in self.selenium.page_source

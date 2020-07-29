@@ -19,7 +19,7 @@ class FavoritesTestCase(GeneralTestCase):
         """
 
         # Opening the link we want to test
-        self.selenium.get('/results/***')
+        self.selenium.get('http://127.0.0.1:8000/results/***')
 #         # Fill the form with data
 #         self.id_username.send_keys('create_account@selenium.com')
 #         self.id_password.send_keys('create_account')
@@ -38,7 +38,7 @@ class FavoritesTestCase(GeneralTestCase):
         """
 
         # Opening the link we want to test
-        self.selenium.get('/favorites/***')
+        self.selenium.get('http://127.0.0.1:8000/favorites/***')
 #         # Fill the form with data
 #         self.id_username.send_keys('create_account_diff_pwd@selenium.com')
 #         self.id_password.send_keys('create_account_diff_pwd')

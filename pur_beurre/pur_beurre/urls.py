@@ -20,7 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('purbeurre_core.urls'), name='purbeurre_homepage'),
     path('home/', include('purbeurre_core.urls'), name='purbeurre_homepage'),
-    path('legal_notices/', include('purbeurre_core.urls'), name='purbeurre_legal'),
     path('favorites/', include('purbeurre_favorites.urls'), name='purbeurre_favorites'),
     path('user/', include('purbeurre_user.urls'), name='purbeurre_user'),
     path('results/', include('purbeurre_results.urls'), name='purbeurre_results')

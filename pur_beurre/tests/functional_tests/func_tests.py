@@ -27,7 +27,6 @@ class GeneralTestCase(LiveServerTestCase):
         super().setUpClass()
         profile = webdriver.FirefoxProfile()
         cls.selenium = webdriver.Firefox(firefox_profile=profile, executable_path=r'.\tests\functional_tests\geckodriver.exe')
-        cls.selenium.implicitly_wait(10)
 
     @classmethod
     def tearDownClass(cls):
