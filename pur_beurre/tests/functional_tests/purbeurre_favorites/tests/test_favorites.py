@@ -1,25 +1,25 @@
-# from selenium.webdriver.common.keys import Keys
-#
-# from tests.functional_tests.func_tests import GeneralTestCase
-#
-#
-# class FavoritesTestCase(GeneralTestCase):
-#
-#     def setUp(self):
-#         GeneralTestCase.setUp(self)
-#         selenium = self.selenium
-#         # find the page element
-#         self.detail = selenium.find_element_by_xpath('//label[@for="id_username"]')  ###
-#         ###self.detail = selenium.find_element_by_xpath('//label[@for="id_username"]')  ###
-#         ### a faire
-#
-#     def test_create_account_ok(self):
-#         """
-#         Tests the user account creation with a valid form.
-#         """
-#
-#         # Opening the link we want to test
-#         self.selenium.get('http://127.0.0.1:8000/user/create_account?')
+from selenium.webdriver.common.keys import Keys
+
+from tests.functional_tests.func_tests import GeneralTestCase
+
+
+class FavoritesTestCase(GeneralTestCase):
+
+    def setUp(self):
+        GeneralTestCase.setUp(self)
+        selenium = self.selenium
+        # find the page element
+        self.detail = selenium.find_element_by_xpath('//label[@for="id_username"]')  ###
+        ###self.detail = selenium.find_element_by_xpath('//label[@for="id_username"]')  ###
+        ### a faire
+
+    def test_save_as_favorite(self):
+        """
+        Tests the registration of a product as user's favorite.
+        """
+
+        # Opening the link we want to test
+        self.selenium.get('/results/***')
 #         # Fill the form with data
 #         self.id_username.send_keys('create_account@selenium.com')
 #         self.id_password.send_keys('create_account')
@@ -31,15 +31,14 @@
 #
 #         # check the returned result
 #         assert 'AHOY CREATEACCOUNT !' in self.selenium.page_source
-#
-#     def test_create_account_diff_pwd(self):
-#         """
-#         Tests the user account creation,
-#         when the confirmation password is different from the first password.
-#         """
-#
-#         # Opening the link we want to test
-#         self.selenium.get('http://127.0.0.1:8000/user/create_account?')
+
+    def test_remove_from_favorites(self):
+        """
+        Tests the suppression of a favorite by the user.
+        """
+
+        # Opening the link we want to test
+        self.selenium.get('/favorites/***')
 #         # Fill the form with data
 #         self.id_username.send_keys('create_account_diff_pwd@selenium.com')
 #         self.id_password.send_keys('create_account_diff_pwd')
