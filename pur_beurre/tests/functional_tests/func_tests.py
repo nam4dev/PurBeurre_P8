@@ -2,6 +2,8 @@ from importlib import import_module
 
 from django.test import LiveServerTestCase
 from selenium import webdriver
+import selenium.webdriver.support.ui as ui
+
 from django.conf import settings
 
 #
@@ -27,6 +29,8 @@ class GeneralTestCase(LiveServerTestCase):
         super().setUpClass()
         profile = webdriver.FirefoxProfile()
         cls.selenium = webdriver.Firefox(firefox_profile=profile, executable_path=r'.\tests\functional_tests\geckodriver.exe')
+        cls.wait = ui.WebDriverWait(cls.selenium, 3)
+
 
     @classmethod
     def tearDownClass(cls):

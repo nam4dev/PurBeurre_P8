@@ -25,8 +25,14 @@ class HomeTestCase(GeneralTestCase):
 
         # submitting the form
         self.search.send_keys(Keys.RETURN)
+        self.wait
 
         # check the returned result
+        self.assertEqual(
+            self.selenium.current_url,
+            'http://127.0.0.1:8000/results/results?query=pain',
+            "urlfound: " + self.selenium.current_url
+        )
         assert 'Vous pouvez remplacer cet aliment par :' in self.selenium.page_source
 
     def test_search_from_navbar_prod_not_found(self):
@@ -39,8 +45,14 @@ class HomeTestCase(GeneralTestCase):
 
         # submitting the form
         self.search.send_keys(Keys.RETURN)
+        self.wait
 
         # check the returned result
+        self.assertEqual(
+            self.selenium.current_url,
+            'http://127.0.0.1:8000/results/results?query=ftmpd654tedsgfra',
+            "urlfound: " + self.selenium.current_url
+        )
         assert 'Vous pouvez effectuer une nouvelle recherche.' in self.selenium.page_source
 
     def test_search_from_homepage_ok(self):
@@ -52,9 +64,15 @@ class HomeTestCase(GeneralTestCase):
         self.prod.send_keys('pain')
 
         # submitting the form
-        self.submit.send_keys(Keys.RETURN)
+        self.submit.click()
+        self.wait
 
         # check the returned result
+        self.assertEqual(
+            self.selenium.current_url,
+            'http://127.0.0.1:8000/results/results?query=pain',
+            "urlfound: " + self.selenium.current_url
+        )
         assert 'Vous pouvez remplacer cet aliment par :' in self.selenium.page_source
 
     def test_search_from_homepage_prod_not_found(self):
@@ -66,7 +84,13 @@ class HomeTestCase(GeneralTestCase):
         self.prod.send_keys('ftmpd654tedsgfra')
 
         # submitting the form
-        self.submit.send_keys(Keys.RETURN)
+        self.submit.click()
+        self.wait
 
         # check the returned result
+        self.assertEqual(
+            self.selenium.current_url,
+            'http://127.0.0.1:8000/results/results?query=ftmpd654tedsgfra',
+            "urlfound: " + self.selenium.current_url
+        )
         assert 'Vous pouvez effectuer une nouvelle recherche.' in self.selenium.page_source

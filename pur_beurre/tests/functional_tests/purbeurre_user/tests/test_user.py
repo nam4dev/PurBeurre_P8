@@ -1,7 +1,3 @@
-from django.conf import settings
-from selenium.webdriver.common.keys import Keys
-import selenium.webdriver.support.ui as ui
-
 from tests.functional_tests.func_tests import GeneralTestCase
 
 
@@ -12,8 +8,6 @@ class AccountTestCase(GeneralTestCase):
 
         self.create_url = 'http://127.0.0.1:8000/user/create_account?'
         self.connect_url = 'http://127.0.0.1:8000/user/connection'
-
-        self.wait = ui.WebDriverWait(self.selenium, 1000)
 
     def account_basis(self, url):
         """
@@ -50,22 +44,22 @@ class AccountTestCase(GeneralTestCase):
         username, password, pwd_confirm, first_name, submit = self.account_basis(self.create_url)
 
         # Fill the form with data
-        username.send_keys('create_account3@selenium.com')
+        username.send_keys('create_account9@selenium.com')
         password.send_keys('create_account')
         pwd_confirm.send_keys('create_account')
         first_name.send_keys('createaccount')
 
         # submitting the form
         submit.click()
-
-        import time
-        time.sleep(3)
+        self.wait
 
         # check the returned result
-        # self.wait.until(lambda driver: self.selenium.find_element_by_tag_name('body'))
-        # assert "AHOY CREATEACCOUNT !" in self.selenium.page_source
-        print(self.selenium.current_url)
-        self.assertEqual(self.selenium.current_url, 'http://127.0.0.1:8000/user/my_account', "urlfound: " + self.selenium.current_url)
+        self.assertEqual(
+            self.selenium.current_url,
+            'http://127.0.0.1:8000/user/my_account',
+            "urlfound: " + self.selenium.current_url
+        )
+        assert "AHOY CREATEACCOUNT" in self.selenium.page_source
 
     def test_create_account_diff_pwd(self):
         """
@@ -82,28 +76,11 @@ class AccountTestCase(GeneralTestCase):
         first_name.send_keys('createaccountdiffpwd')
 
         # submitting the form
-        submit.send_keys(Keys.RETURN)
+        submit.click()
+        self.wait
 
         # check the returned result
-        assert 'veuillez entrer un mot de passe de confirmation identique au mot de passe' \
-               ' choisi.' in self.selenium.page_source
-
-    def test_connection_ok(self):
-        """
-        Tests the user connection with a valid form.
-        """
-
-        username, password, pwd_confirm, first_name, submit = self.account_basis(self.connect_url)
-
-        # Fill the form with data
-        username.send_keys('connection@selenium.com')
-        password.send_keys('connection')
-
-        # submitting the form
-        submit.send_keys(Keys.RETURN)
-
-        # check the returned result
-        assert 'Vous êtes connecté(e), Sélénium!' in self.selenium.page_source
+        assert 'veuillez entrer un mot de passe de confirmation identique' in self.selenium.page_source
 
     def test_connection_wrong_pwd(self):
         """
@@ -117,7 +94,8 @@ class AccountTestCase(GeneralTestCase):
         password.send_keys('not_selenium_test')
 
         # submitting the form
-        submit.send_keys(Keys.RETURN)
+        submit.click()
+        self.wait
 
         # check the returned result
         assert 'Utilisateur inconnu ou mauvais de mot de passe.' in self.selenium.page_source
@@ -134,32 +112,31 @@ class AccountTestCase(GeneralTestCase):
         password.send_keys('selenium_test')
 
         # submitting the form
-        submit.send_keys(Keys.RETURN)
+        submit.click()
+        self.wait
 
         # check the returned result
         assert 'Utilisateur inconnu ou mauvais de mot de passe.' in self.selenium.page_source
 
-    # def test_welcome_page(self):
-    #     # pdb.set_trace()
-    #     # Create a session storage object.
-    #     session_store = create_session_store()
-    #     # In pdb, you can do 'session_store.session_key' to view the session key just created.
-    #
-    #     # Create a session object from the session store object.
-    #     session_items = session_store
-    #
-    #     # Add a session key/value pair.
-    #     session_items['uid'] = 1
-    #     session_items.save()
-    #
-    #     # Go to the correct domain.
-    #     self.selenium.get(self.live_server_url)
-    #
-    #     # Add the session key to the cookie that will be sent back to the server.
-    #     self.selenium.add_cookie({'name': settings.SESSION_COOKIE_NAME, 'value': session_store.session_key})
-    #     # In pdb, do 'self.selenium.get_cookies() to verify that it's there.'
-    #
-    #     # The client sends a request to the view that's expecting the session item.
-    #     self.selenium.get(self.live_server_url + '/signup/')
-    #     body = self.selenium.find_element_by_tag_name('body')
-    #     self.assertIn('Welcome', body.text)
+    def test_connection_ok(self):
+        """
+        Tests the user connection with a valid form.
+        """
+
+        username, password, pwd_confirm, first_name, submit = self.account_basis(self.connect_url)
+
+        # Fill the form with data
+        username.send_keys('connection@selenium.com')
+        password.send_keys('connection')
+
+        # submitting the form
+        submit.click()
+        self.wait
+
+        # check the returned result
+        assert 'Vous êtes connecté(e), Sélénium !' in self.selenium.page_source
+        self.assertEqual(
+            self.selenium.current_url,
+            'http://127.0.0.1:8000/user/connection',
+            "urlfound: " + self.selenium.current_url
+        )
