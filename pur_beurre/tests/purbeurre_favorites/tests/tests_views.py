@@ -58,4 +58,10 @@ class TestFavoritesViews(TestCase):
         response = self.client.post(reverse('remove',), {'product': self.product.id})
         self.assertEqual(response.status_code, 302)
         self.assertTemplateUsed('purbeurre_favorites/favorites.html')
-        self.assertNotIsInstance(Favorite.objects.filter(id=self.product.id, user=self.user.id), Favorite)
+        self.assertNotIsInstance(
+            Favorite.objects.filter(
+                id=self.product.id,
+                user=self.user.id
+            ),
+            Favorite
+        )

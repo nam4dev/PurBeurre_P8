@@ -3,6 +3,10 @@ from purbeurre_off.models import Product
 
 
 def results(request):
+    """
+    Shows the products found.
+    """
+
     query = request.GET.get('query')
     substitutes, product = Product.objects.search(query)
     # if nothing found, product not found
@@ -16,6 +20,9 @@ def results(request):
 
 
 def detail(request, product_id=None):
+    """
+    Shows the detailed page of the product.
+    """
     # detailed page of the product.
     product = Product.objects.get(id=product_id)
     return render(request, 'purbeurre_results/detail.html', dict(product=product))

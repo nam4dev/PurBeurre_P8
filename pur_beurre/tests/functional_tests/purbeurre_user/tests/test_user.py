@@ -1,7 +1,4 @@
 from tests.functional_tests.func_tests import GeneralTestCase
-from django.test import Client
-
-# from django.contrib.auth import logout
 
 
 class AccountTestCase(GeneralTestCase):
@@ -83,10 +80,10 @@ class AccountTestCase(GeneralTestCase):
 
         # submitting the form
         submit.click()
-        self.wait
+        self.wait_second()
 
         # check the returned result
-        assert 'veuillez entrer un mot de passe de confirmation identique' in self.selenium.page_source
+        self.assertIn('veuillez entrer un mot de passe de confirmation identique', self.selenium.page_source)
 
     def test_connection_wrong_pwd(self):
         """
@@ -101,10 +98,10 @@ class AccountTestCase(GeneralTestCase):
 
         # submitting the form
         submit.click()
-        self.wait
+        self.wait_second()
 
         # check the returned result
-        assert 'Utilisateur inconnu ou mauvais de mot de passe.' in self.selenium.page_source
+        self.assertIn('Utilisateur inconnu ou mauvais de mot de passe.', self.selenium.page_source)
 
     def test_connection_user_not_known(self):
         """
@@ -119,10 +116,10 @@ class AccountTestCase(GeneralTestCase):
 
         # submitting the form
         submit.click()
-        self.wait
+        self.wait_second()
 
         # check the returned result
-        assert 'Utilisateur inconnu ou mauvais de mot de passe.' in self.selenium.page_source
+        self.assertIn('Utilisateur inconnu ou mauvais de mot de passe.', self.selenium.page_source)
 
     def test_connection_ok(self):
         """
@@ -137,10 +134,10 @@ class AccountTestCase(GeneralTestCase):
 
         # submitting the form
         submit.click()
-        self.wait
+        self.wait_second()
 
         # check the returned result
-        assert 'Vous êtes connecté(e), Sélénium !' in self.selenium.page_source
+        self.assertIn('Vous êtes connecté(e), Sélénium !', self.selenium.page_source)
         self.assertEqual(
             self.selenium.current_url,
             'http://127.0.0.1:8000/user/connection',

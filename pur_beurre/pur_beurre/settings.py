@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import dj_database_url
+import django_heroku
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +23,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-()loz!vvo4&z_#ke3ipzj)%sk5*fn33h!unzt8^z00k9*xqwr'
+SECRET_KEY = SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    '-()loz!vvo4&z_#ke3ipzj)%sk5*fn33h!unzt8^z00k9*xqwr'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get('ENV') == 'PRODUCTION':
+    DEBUG = False
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['elwaze-purbeurre.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -53,6 +62,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if os.environ.get('ENV') == 'PRODUCTION':
+    # ...
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'pur_beurre.urls'
 
@@ -88,12 +103,17 @@ DATABASES = {
         'PASSWORD': 'mvtm,js1np',
         'HOST': '127.0.0.1',
         'PORT': '5433',
+        'CONN_MAX_AGE': 500,
     },
 }
-# DATABASES['default'] = {
-#     'ENGINE': 'django.db.backends.sqlite3',
-#     'NAME': 'pur_beurre/db.sqlite3',
-# }
+
+if os.environ.get('ENV') == 'PRODUCTION':
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# if 'test' in sys.argv:
+#     DATABASES['default'] = {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'pur_beurre/db.sqlite3'
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -130,8 +150,25 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+
+if os.environ.get('ENV') == 'PRODUCTION':
+
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+    # Static files settings
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+    # Extra places for collectstatic to find static files.
+    STATICFILES_DIRS = (
+        os.path.join(PROJECT_ROOT, 'static'),
+    )
+else:
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

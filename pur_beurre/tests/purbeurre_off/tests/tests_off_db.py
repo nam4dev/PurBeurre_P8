@@ -97,7 +97,8 @@ class TestCommand(TestCase):
         )
 
     @mock.patch(
-        'purbeurre_off.management.commands.off_db.Command.get_products')
+        'purbeurre_off.management.commands.off_db.Command.get_products'
+    )
     def test_get_categories(self, mocked_get_products):
 
         # calling function
@@ -107,7 +108,9 @@ class TestCommand(TestCase):
         self.assertEqual(mocked_get_products.call_count, 15)
         self.assertEqual(Category.objects.all().exists(), True)
 
-    @mock.patch('purbeurre_off.management.commands.off_db.Command.get_categories')
+    @mock.patch(
+        'purbeurre_off.management.commands.off_db.Command.get_categories'
+    )
     @mock.patch('requests.get')
     def test_handle(self, mocked_requests_get, mocked_get_categories):
         # mocking
@@ -120,6 +123,8 @@ class TestCommand(TestCase):
         self.command.handle()
 
         # expected result
-        mocked_requests_get.assert_called_once_with('https://fr.openfoodfacts.org/categories&json=1')
+        mocked_requests_get.assert_called_once_with(
+            'https://fr.openfoodfacts.org/categories&json=1'
+        )
         mocked_get_categories.assert_called_once_with(self.tags)
         self.assertEqual(Product.objects.all().exists(), False)

@@ -16,12 +16,14 @@ class FavoritesTestCase(GeneralTestCase):
         """
         Tests the registration of a product as user's favorite.
         """
+
         # Opening the link we want to test
         self.selenium.get('http://127.0.0.1:8000/results/results?query=pain')
         # Click on "sauvegarder"
+        self.wait_second()
         save_product = self.selenium.find_element_by_xpath('//input[@value="Sauvegarder"]')
         save_product.click()
-        self.wait
+        self.wait_second()
 
         # check the returned result
         self.assertEqual(
@@ -29,7 +31,7 @@ class FavoritesTestCase(GeneralTestCase):
             'http://127.0.0.1:8000/favorites/favorites',
             "urlfound: " + self.selenium.current_url
         )
-        assert 'MES ALIMENTS' in self.selenium.page_source
+        self.assertIn('MES ALIMENTS', self.selenium.page_source)
 
     def test_remove_from_favorites(self):
         """
@@ -40,9 +42,10 @@ class FavoritesTestCase(GeneralTestCase):
         self.selenium.get('http://127.0.0.1:8000/favorites/favorites')
 
         # Click on "Supprimer"
+        self.wait_second()
         delete_product = self.selenium.find_element_by_xpath('//input[@value="Supprimer"]')
         delete_product.click()
-        self.wait
+        self.wait_second()
 
 #         # check the returned result
 # comment je fais là ??

@@ -5,6 +5,10 @@ from .forms import ConnectionForm, AccountForm
 
 
 def connection(request):
+    """
+    Connection to the user account.
+    """
+
     error = False
     if request.method == "POST":
         form = ConnectionForm(request.POST)
@@ -26,17 +30,29 @@ def connection(request):
 
 
 def my_account(request):
+    """
+    Getting the user's personal page.
+    """
 
     return render(request, 'purbeurre_user/my_account.html', locals())
 
 
 def disconnection(request):
+    """
+    Logging the user out.
+    """
+
     logout(request)
     print(request)
     return render(request, 'purbeurre_core/home.html', locals())
 
 
 def create_account(request):
+    """
+    Creating a new user account.
+    Needs a username not already used.
+    """
+
     error = False
 
     if request.method == "POST":

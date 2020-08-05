@@ -36,7 +36,8 @@ class TestResultsViews(TestCase):
         Getting the detail page should return a http code = 200.
         """
 
-        response = self.client.get(reverse('detail', kwargs={'product_id': self.product.id}))
+        response = self.client.get(reverse(
+            'detail', kwargs={'product_id': self.product.id}))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('purbeurre_results/detail.html')
 
