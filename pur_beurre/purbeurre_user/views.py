@@ -32,6 +32,7 @@ def my_account(request):
 
 def disconnection(request):
     logout(request)
+    print(request)
     return render(request, 'purbeurre_core/home.html', locals())
 
 

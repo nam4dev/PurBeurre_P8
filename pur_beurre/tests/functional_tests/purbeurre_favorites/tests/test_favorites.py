@@ -1,5 +1,5 @@
 from selenium.webdriver.common.keys import Keys
-
+from django.test import Client
 from tests.functional_tests.func_tests import GeneralTestCase
 
 
@@ -7,30 +7,29 @@ class FavoritesTestCase(GeneralTestCase):
 
     def setUp(self):
         super().setUp()
-        selenium = self.selenium
-        # find the page element
-        self.detail = selenium.find_element_by_xpath('//label[@for="id_username"]')  ###
-        ###self.detail = selenium.find_element_by_xpath('//label[@for="id_username"]')  ###
-        ### a faire
+
+        # connect user
+        client = Client()
+        client.login(username='connection@selenium.com', password='connection')
 
     def test_save_as_favorite(self):
         """
         Tests the registration of a product as user's favorite.
         """
-
         # Opening the link we want to test
-        self.selenium.get('http://127.0.0.1:8000/results/results')
-#         # Fill the form with data
-#         self.id_username.send_keys('create_account@selenium.com')
-#         self.id_password.send_keys('create_account')
-#         self.id_pwd_confirm.send_keys('create_account')
-#         self.id_first_name.send_keys('createaccount')
-#
-#         # submitting the form
-#         self.submit.send_keys(Keys.RETURN)
-#
-#         # check the returned result
-#         assert 'AHOY CREATEACCOUNT !' in self.selenium.page_source
+        self.selenium.get('http://127.0.0.1:8000/results/results?query=pain')
+        # Click on "sauvegarder"
+        save_product = self.selenium.find_element_by_xpath('//input[@value="Sauvegarder"]')
+        save_product.click()
+        self.wait
+
+        # check the returned result
+        self.assertEqual(
+            self.selenium.current_url,
+            'http://127.0.0.1:8000/favorites/favorites',
+            "urlfound: " + self.selenium.current_url
+        )
+        assert 'MES ALIMENTS' in self.selenium.page_source
 
     def test_remove_from_favorites(self):
         """
@@ -38,67 +37,14 @@ class FavoritesTestCase(GeneralTestCase):
         """
 
         # Opening the link we want to test
-        self.selenium.get('http://127.0.0.1:8000/favorites/***')
-#         # Fill the form with data
-#         self.id_username.send_keys('create_account_diff_pwd@selenium.com')
-#         self.id_password.send_keys('create_account_diff_pwd')
-#         self.id_pwd_confirm.send_keys('not_selenium_test')
-#         self.id_first_name.send_keys('createaccountdiffpwd')
-#
-#         # submitting the form
-#         self.submit.send_keys(Keys.RETURN)
-#
+        self.selenium.get('http://127.0.0.1:8000/favorites/favorites')
+
+        # Click on "Supprimer"
+        delete_product = self.selenium.find_element_by_xpath('//input[@value="Supprimer"]')
+        delete_product.click()
+        self.wait
+
 #         # check the returned result
+# comment je fais là ??
 #         assert 'veuillez entrer un mot de passe de confirmation identique au mot de passe' \
 #                ' choisi.' in self.selenium.page_source
-#
-#     def test_connection_ok(self):
-#         """
-#         Tests the user connection with a valid form.
-#         """
-#
-#         # Opening the link we want to test
-#         self.selenium.get('http://127.0.0.1:8000/user/connection')
-#         # Fill the form with data
-#         self.id_username.send_keys('connection@selenium.com')
-#         self.id_password.send_keys('connection')
-#
-#         # submitting the form
-#         self.submit.send_keys(Keys.RETURN)
-#
-#         # check the returned result
-#         assert 'Vous êtes connecté(e), !' in self.selenium.page_source
-#
-#     def test_connection_wrong_pwd(self):
-#         """
-#         Tests the user connection with a wrong password.
-#         """
-#
-#         # Opening the link we want to test
-#         self.selenium.get('http://127.0.0.1:8000/user/connection')
-#         # Fill the form with data
-#         self.id_username.send_keys('connection@selenium.com')
-#         self.id_password.send_keys('not_selenium_test')
-#
-#         # submitting the form
-#         self.submit.send_keys(Keys.RETURN)
-#
-#         # check the returned result
-#         assert 'Utilisateur inconnu ou mauvais de mot de passe.' in self.selenium.page_source
-#
-#     def test_connection_user_not_known(self):
-#         """
-#         Tests the user connection with a wrong password.
-#         """
-#
-#         # Opening the link we want to test
-#         self.selenium.get('http://127.0.0.1:8000/user/connection')
-#         # Fill the form with data
-#         self.id_username.send_keys('user_not_known@test.com')
-#         self.id_password.send_keys('selenium_test')
-#
-#         # submitting the form
-#         self.submit.send_keys(Keys.RETURN)
-#
-#         # check the returned result
-#         assert 'Utilisateur inconnu ou mauvais de mot de passe.' in self.selenium.page_source

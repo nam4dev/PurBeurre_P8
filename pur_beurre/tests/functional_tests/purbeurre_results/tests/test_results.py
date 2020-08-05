@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from tests.functional_tests.func_tests import GeneralTestCase
 
 
-class HomeTestCase(GeneralTestCase):
+class ResultsTestCase(GeneralTestCase):
 
     def setUp(self):
         super().setUp()

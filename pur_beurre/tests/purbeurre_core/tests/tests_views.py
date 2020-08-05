@@ -14,7 +14,7 @@ class TestHome(TestCase):
 
         response = self.client.get(reverse('homepage'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('purbeurre_core/home.html')
+        self.assertTemplateUsed('purbeurre_results/home.html')
 
     def test_legal(self):
         """
@@ -23,4 +23,4 @@ class TestHome(TestCase):
 
         response = self.client.get(reverse('legal'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('purbeurre_core/legal_notices.html')
+        self.assertTemplateUsed('purbeurre_results/legal_notices.html')

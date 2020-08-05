@@ -1,4 +1,7 @@
 from tests.functional_tests.func_tests import GeneralTestCase
+from django.test import Client
+
+# from django.contrib.auth import logout
 
 
 class AccountTestCase(GeneralTestCase):
@@ -44,7 +47,7 @@ class AccountTestCase(GeneralTestCase):
         username, password, pwd_confirm, first_name, submit = self.account_basis(self.create_url)
 
         # Fill the form with data
-        username.send_keys('create_account9@selenium.com')
+        username.send_keys('create_account@selenium.com')
         password.send_keys('create_account')
         pwd_confirm.send_keys('create_account')
         first_name.send_keys('createaccount')
@@ -59,7 +62,10 @@ class AccountTestCase(GeneralTestCase):
             'http://127.0.0.1:8000/user/my_account',
             "urlfound: " + self.selenium.current_url
         )
-        assert "AHOY CREATEACCOUNT" in self.selenium.page_source
+
+        # logout at the end of the test, not to be logged in for next test
+        logout = self.selenium.find_element_by_xpath('//a[@href="/user/disconnection"]')
+        logout.click()
 
     def test_create_account_diff_pwd(self):
         """
@@ -131,8 +137,8 @@ class AccountTestCase(GeneralTestCase):
 
         # submitting the form
         submit.click()
-        self.wait.until_not(
-            lambda driver: self.selenium.current_url == self.connect_url)
+        self.wait
+
         # check the returned result
         assert 'Vous êtes connecté(e), Sélénium !' in self.selenium.page_source
         self.assertEqual(
@@ -140,3 +146,7 @@ class AccountTestCase(GeneralTestCase):
             'http://127.0.0.1:8000/user/connection',
             "urlfound: " + self.selenium.current_url
         )
+
+        # logout at the end of the test, not to be logged in for next test
+        logout = self.selenium.find_element_by_xpath('//a[@href="/user/disconnection"]')
+        logout.click()
