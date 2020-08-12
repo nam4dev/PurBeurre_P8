@@ -23,9 +23,15 @@ class TestUserForms(TestCase):
         }
 
     def test_user_account_form_same_username(self):
-        # if the user tries to create an account with an already used username
+        """
+        Tests if the user tries to create an account with an already used username.
+        """
+
         self.assertRaises(ValidationError, AccountForm.clean_username, self)
 
     def test_user_account_form_wrong_confirm_pwd(self):
-        # if the confirmation password is different from the first password.
+        """
+        Tests if the confirmation password is different from the first password.
+        """
+
         self.assertRaises(ValidationError, AccountForm.clean_pwd_confirm, self)

@@ -1,5 +1,3 @@
-from importlib import import_module
-
 from django.test import LiveServerTestCase
 from selenium import webdriver
 import selenium.webdriver.support.ui as ui

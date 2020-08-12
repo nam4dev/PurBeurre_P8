@@ -1,4 +1,3 @@
-from selenium.webdriver.common.keys import Keys
 from django.test import Client
 from tests.functional_tests.func_tests import GeneralTestCase
 
@@ -47,7 +46,4 @@ class FavoritesTestCase(GeneralTestCase):
         delete_product.click()
         self.wait_second()
 
-#         # check the returned result
-# comment je fais là ??
-#         assert 'veuillez entrer un mot de passe de confirmation identique au mot de passe' \
-#                ' choisi.' in self.selenium.page_source
+        # a terminer
