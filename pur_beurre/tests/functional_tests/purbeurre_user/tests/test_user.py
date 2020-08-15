@@ -44,7 +44,7 @@ class AccountTestCase(GeneralTestCase):
         username, password, pwd_confirm, first_name, submit = self.account_basis(self.create_url)
 
         # Fill the form with data
-        username.send_keys('create_account_01@selenium.com')
+        username.send_keys('create_account_02@selenium.com')
         password.send_keys('create_account')
         pwd_confirm.send_keys('create_account')
         first_name.send_keys('createaccount')

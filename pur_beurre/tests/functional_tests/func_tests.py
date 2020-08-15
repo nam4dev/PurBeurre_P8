@@ -19,6 +19,7 @@ class GeneralTestCase(LiveServerTestCase):
         )
         cls.wait = ui.WebDriverWait(cls.selenium, 1)
         cls.wait_second = lambda sec=1: ui.WebDriverWait(cls.selenium, sec)
+        cls.selenium.set_page_load_timeout(30)
 
     @classmethod
     def tearDownClass(cls):
