@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import dj_database_url
-import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -34,8 +33,7 @@ if os.environ.get('ENV') == 'PRODUCTION':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['elwaze-purbeurre.herokuapp.com', '127.0.0.1']
-
+ALLOWED_HOSTS = ['.herokuapp.com', 'elwaze-purbeurre.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -159,10 +157,13 @@ if os.environ.get('ENV') == 'PRODUCTION':
     STATICFILES_DIRS = (
         os.path.join(PROJECT_ROOT, 'static'),
     )
+    # Activate Django-Heroku.
+    import django_heroku
+    django_heroku.settings(locals())
+
 else:
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
     )
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+
