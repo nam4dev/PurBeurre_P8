@@ -99,7 +99,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'mvtm,js1np',
         'HOST': '127.0.0.1',
-        'PORT': '8000',
+        'PORT': '52839',
         'CONN_MAX_AGE': 500,
     },
 }
