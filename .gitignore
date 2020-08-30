@@ -3,5 +3,5 @@ venv/
 __pycache__/
 *.log
 .gitignore
-.coverage*
-htmlcov*
+.coverage
+coverage_html_report*
