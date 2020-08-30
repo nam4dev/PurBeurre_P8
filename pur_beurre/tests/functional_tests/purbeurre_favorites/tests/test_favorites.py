@@ -1,49 +1,41 @@
-from django.test import Client
 from tests.functional_tests.func_tests import GeneralTestCase
 
 
 class FavoritesTestCase(GeneralTestCase):
 
-    def setUp(self):
-        super().setUp()
-
-        # connect user
-        client = Client()
-        client.login(username='connection@selenium.com', password='connection')
-
     def test_save_as_favorite(self):
         """
         Tests the registration of a product as user's favorite.
         """
-
         # Opening the link we want to test
-        self.selenium.get('http://127.0.0.1:8000/results/results?query=pain')
+        self.selenium.get('{}/results/results?query=pain'.format(self.live_server_url))
         # Click on "sauvegarder"
-        self.wait_second()
-        save_product = self.selenium.find_element_by_xpath('//input[@value="Sauvegarder"]')
+        save_product = self.selenium.find_element_by_id('save_product')
         save_product.click()
-        self.wait_second()
 
         # check the returned result
         self.assertEqual(
             self.selenium.current_url,
-            'http://127.0.0.1:8000/favorites/favorites',
+            '{}/favorites/favorites'.format(self.live_server_url),
             "urlfound: " + self.selenium.current_url
         )
-        self.assertIn('MES ALIMENTS', self.selenium.page_source)
+        self.assertIn('mes aliments sauvegardés', self.selenium.page_source.lower())
 
     def test_remove_from_favorites(self):
         """
         Tests the suppression of a favorite by the user.
         """
+        # Opening the link we want to test
+        self.selenium.get('{}/results/results?query=pain'.format(self.live_server_url))
+        # Click on "sauvegarder"
+        save_product = self.selenium.find_element_by_id('save_product')
+        save_product.click()
 
         # Opening the link we want to test
-        self.selenium.get('http://127.0.0.1:8000/favorites/favorites')
+        self.selenium.get('{}/favorites/favorites'.format(self.live_server_url))
 
         # Click on "Supprimer"
-        self.wait_second()
-        delete_product = self.selenium.find_element_by_xpath('//input[@value="Supprimer"]')
+        delete_product = self.selenium.find_element_by_id('remove_favorite')
         delete_product.click()
-        self.wait_second()
 
-        # a terminer
+        # TBD

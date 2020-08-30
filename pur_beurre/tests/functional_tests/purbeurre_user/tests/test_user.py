@@ -1,13 +1,17 @@
+from tests.functional_tests.func_tests import USERNAME
+from tests.functional_tests.func_tests import PASSWORD
+from tests.functional_tests.func_tests import FIRST_NAME
 from tests.functional_tests.func_tests import GeneralTestCase
 
 
 class AccountTestCase(GeneralTestCase):
+    login_required = False
 
     def setUp(self):
         super().setUp()
 
-        self.create_url = 'http://127.0.0.1:8000/user/create_account?'
-        self.connect_url = 'http://127.0.0.1:8000/user/connection'
+        self.create_url = '{}/user/create_account?'.format(self.live_server_url)
+        self.connect_url = '{}/user/connection'.format(self.live_server_url)
 
     def account_basis(self, url):
         """
@@ -18,7 +22,6 @@ class AccountTestCase(GeneralTestCase):
         when using connection url, pwd_confirm and first_name not found
         -> replaced by an empty string.
         """
-
         # Opening the link we want to test
         self.selenium.get(url)
 
@@ -40,23 +43,20 @@ class AccountTestCase(GeneralTestCase):
         """
         Tests the user account creation with a valid form.
         """
-
         username, password, pwd_confirm, first_name, submit = self.account_basis(self.create_url)
 
         # Fill the form with data
-        username.send_keys('create_account@selenium.com')
-        password.send_keys('create_account')
-        pwd_confirm.send_keys('create_account')
+        username.send_keys('created_{}'.format(USERNAME))
+        password.send_keys('created_{}'.format(PASSWORD))
+        pwd_confirm.send_keys('created_{}'.format(PASSWORD))
         first_name.send_keys('createaccount')
 
         # submitting the form
         submit.click()
-        self.wait.until_not(
-            lambda driver: self.selenium.current_url == self.create_url)
         # check the returned result
         self.assertEqual(
             self.selenium.current_url,
-            'http://127.0.0.1:8000/user/my_account',
+            '{}/user/my_account'.format(self.live_server_url),
             "urlfound: " + self.selenium.current_url
         )
 
@@ -69,7 +69,6 @@ class AccountTestCase(GeneralTestCase):
         Tests the user account creation,
         when the confirmation password is different from the first password.
         """
-
         username, password, pwd_confirm, first_name, submit = self.account_basis(self.create_url)
 
         # Fill the form with data
@@ -80,7 +79,6 @@ class AccountTestCase(GeneralTestCase):
 
         # submitting the form
         submit.click()
-        self.wait_second()
 
         # check the returned result
         self.assertIn('veuillez entrer un mot de passe de confirmation identique', self.selenium.page_source)
@@ -89,16 +87,14 @@ class AccountTestCase(GeneralTestCase):
         """
         Tests the user connection with a wrong password.
         """
-
         username, password, pwd_confirm, first_name, submit = self.account_basis(self.connect_url)
 
         # Fill the form with data
-        username.send_keys('connection@selenium.com')
+        username.send_keys(USERNAME)
         password.send_keys('not_selenium_test')
 
         # submitting the form
         submit.click()
-        self.wait_second()
 
         # check the returned result
         self.assertIn('Utilisateur inconnu ou mauvais de mot de passe.', self.selenium.page_source)
@@ -107,7 +103,6 @@ class AccountTestCase(GeneralTestCase):
         """
         Tests the user connection with a wrong password.
         """
-
         username, password, pwd_confirm, first_name, submit = self.account_basis(self.connect_url)
 
         # Fill the form with data
@@ -116,7 +111,6 @@ class AccountTestCase(GeneralTestCase):
 
         # submitting the form
         submit.click()
-        self.wait_second()
 
         # check the returned result
         self.assertIn('Utilisateur inconnu ou mauvais de mot de passe.', self.selenium.page_source)
@@ -125,22 +119,20 @@ class AccountTestCase(GeneralTestCase):
         """
         Tests the user connection with a valid form.
         """
-
         username, password, pwd_confirm, first_name, submit = self.account_basis(self.connect_url)
 
         # Fill the form with data
-        username.send_keys('connection@selenium.com')
-        password.send_keys('connection')
+        username.send_keys(USERNAME)
+        password.send_keys(PASSWORD)
 
         # submitting the form
         submit.click()
-        self.wait_second()
 
         # check the returned result
-        self.assertIn('Vous êtes connecté(e), Sélénium !', self.selenium.page_source)
+        self.assertIn('Vous êtes connecté(e), {} !'.format(FIRST_NAME), self.selenium.page_source)
         self.assertEqual(
             self.selenium.current_url,
-            'http://127.0.0.1:8000/user/connection',
+            '{}/user/connection'.format(self.live_server_url),
             "urlfound: " + self.selenium.current_url
         )
 

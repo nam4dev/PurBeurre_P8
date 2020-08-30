@@ -29,7 +29,7 @@
                                     <form class="save" method="GET" action="{% url 'save' %}">
                                         {% csrf_token %}
                                         <input type="hidden" name="product" value="{{ product.id }}">
-                                        <input type="submit" class="btn btn-primary" name="prod" value="Sauvegarder" />
+                                        <input id="save_product" type="submit" class="btn btn-primary" name="prod" value="Sauvegarder" />
                                     </form>
                                 </div>
                                 {% endif %}

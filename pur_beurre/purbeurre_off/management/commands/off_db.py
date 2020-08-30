@@ -1,15 +1,44 @@
 #!/usr/bin/env python3
 """ populating and updating purbeurre DB from openfoodfacts API."""
+import requests
+
+from purbeurre_off.models import Product
+from purbeurre_off.models import Category
 
 from django.core.management.base import BaseCommand
-from purbeurre_off.models import Product, Category
-import requests
+
+
+PRODUCT_EXPECTED_COUNT = 1000
 
 
 class Command(BaseCommand):
     help = 'Update DB from OFF API'
 
+    @property
+    def product_count(self):
+        return 5 if self.testing else 500
+
+    @property
+    def category_count(self):
+        return 2 if self.testing else 15
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.testing = False
+
+    def add_arguments(self, parser):
+        """
+        Entry point for subclassed commands to add custom arguments.
+        """
+        parser.add_argument(
+            '--testing', action='store_true',
+            help="Reduce the amount of elements fetched from OFF"
+        )
+
     def handle(self, *args, **options):
+        self.testing = options.get('testing')
+
         self.stdout.write('updating DB')
         Product.objects.all().delete()
         api_url = 'https://fr.openfoodfacts.org/categories&json=1'
@@ -76,7 +105,7 @@ class Command(BaseCommand):
         # 20 products / page
         needed_pages = products_number / 20
         nb_prod = 0
-        while (pages_count < (needed_pages + 1)) and (nb_prod < 500):
+        while (pages_count < (needed_pages + 1)) and (nb_prod < self.product_count):
             # we request pages one by one, and we limit number of products for Heroku DB size
             request_products = requests.get(f'{url}/{str(pages_count)}.json')
             pages_count += 1
@@ -100,7 +129,7 @@ class Command(BaseCommand):
             name = tag['name']
             products_number = tag['products']
             # for a useful category, we want at least 1000 products
-            if products_number > 1000:
+            if products_number > PRODUCT_EXPECTED_COUNT:
                 if ":" not in name and "-" not in name:
                     # save category in DB
                     category, _ = Category.objects.get_or_create(name=name)
@@ -108,6 +137,6 @@ class Command(BaseCommand):
                     self.get_products(category, tag['url'], products_number)
                     category_selected += 1
 
-            if category_selected == 15:
+            if category_selected == self.category_count:
                 print(f'{category_selected} categories inserted in DB -> break')
                 break

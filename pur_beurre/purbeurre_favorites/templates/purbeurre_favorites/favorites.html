@@ -25,7 +25,7 @@
                         <form class="delete" method="POST" action="{% url 'remove' %}">
                             {% csrf_token %}
                             <input type="hidden" name="product" value="{{ product.id }}">
-                            <input type="submit" class="btn btn-danger" value="Supprimer" />
+                            <input id="remove_favorite" type="submit" class="btn btn-danger" value="Supprimer" />
                         </form>
                     </a>
                 </div>
