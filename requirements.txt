@@ -7,3 +7,4 @@ coverage
 selenium
 webdriver-manager
 django-selenium-login
+gunicorn
