@@ -47,9 +47,9 @@ pip install -r requirements.txt
 **.coveragerc** file has been created to finely tune the coverage behavior.
 
 ```bash
-cd PurBeurre_P8/pur_beurre
+cd pur_beurre
 coverage erase
-coverage run manage.py test --settings=pur_beurre.test_settings
+coverage run manage.py test tests.apps --settings=pur_beurre.test_settings
 coverage 
 ```
 
