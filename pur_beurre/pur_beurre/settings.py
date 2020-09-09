@@ -44,11 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'purbeurre_off',
-    'purbeurre_core',
-    'purbeurre_results',
-    'purbeurre_user',
-    'purbeurre_favorites'
+    'purbeurre.purbeurre_off',
+    'purbeurre.purbeurre_core',
+    'purbeurre.purbeurre_results',
+    'purbeurre.purbeurre_user',
+    'purbeurre.purbeurre_favorites'
 ]
 
 MIDDLEWARE = [
@@ -67,7 +67,7 @@ if os.environ.get('ENV') == 'PRODUCTION':
     # https://warehouse.python.org/project/whitenoise/
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-ROOT_URLCONF = 'pur_beurre.urls'
+ROOT_URLCONF = 'pur_beurre.pur_beurre.urls'
 
 TEMPLATES = [
     {
@@ -87,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pur_beurre.wsgi.application'
+WSGI_APPLICATION = 'pur_beurre.pur_beurre.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -105,7 +105,18 @@ DATABASES = {
 }
 
 if os.environ.get('ENV') == 'PRODUCTION':
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',  # 'postgresql', 'mysql', 'sqlite3', 'oracle'.
+            'NAME': 'd7n1g7m0svu49v',
+            'USER': 'wmvfgvnsvtneoq',
+            'PASSWORD': 'eca7c17b56ac2e8ce9524a611d24adfc08c0210a2187a9f666a5c121b0cc12f2',
+            'HOST': 'ec2-34-251-118-151.eu-west-1.compute.amazonaws.com',
+            'PORT': '5432',
+        },
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
