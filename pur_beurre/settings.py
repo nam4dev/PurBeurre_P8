@@ -92,6 +92,7 @@ WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# TODO: Uncomment it for testing locally
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',   # 'postgresql', 'mysql', 'sqlite3', 'oracle'.
@@ -112,18 +113,7 @@ DATABASES = {
 }
 
 if os.environ.get('ENV') == 'PRODUCTION':
-    # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',  # 'postgresql', 'mysql', 'sqlite3', 'oracle'.
-            'NAME': 'd7n1g7m0svu49v',
-            'USER': 'wmvfgvnsvtneoq',
-            'PASSWORD': 'eca7c17b56ac2e8ce9524a611d24adfc08c0210a2187a9f666a5c121b0cc12f2',
-            'HOST': 'ec2-34-251-118-151.eu-west-1.compute.amazonaws.com',
-            'PORT': '5432',
-        },
-    }
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -170,7 +160,6 @@ STATICFILES_DIRS = (
 )
 
 if os.environ.get('ENV') == 'PRODUCTION':
-
     MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
     # Activate Django-Heroku.
